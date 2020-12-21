@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <button @click="getUsers">Get Users</button>
-    <button @click="getCourses">Get Courses</button>
+
     <div
         class="row"
         v-for="course in courses"
@@ -13,38 +12,90 @@
         />
       </div>
     </div>
+    <br><br>
+
+    <div
+        class="row"
+        v-for="user in users"
+        :key="user.id"
+    >
+      <div class="card-wrapper">
+        <user-card
+            :user="user"
+            @userUpdated="userupdated"
+            @userDeleted="userdeleted"
+        />
+      </div>
+    </div>
+
+
+
+   <create-user-form
+       @userCreated="usercreated"
+   ></create-user-form>
+
+
+
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import CourseCard from "@/components/CourseCard";
+import UserCard from "@/components/UserCard";
+import CreateUserForm from "@/components/CreateUserForm";
+
 
 export default {
   name: 'App',
   components: {
-    CourseCard
+    CreateUserForm,
+    CourseCard,
+    UserCard,
   },
 
   data(){
     return{
       users: null,
       courses: null,
+      instructors: null,
     }
   },
 
   methods:{
-    getUsers(){
-      axios.get('https://elearningplatform.herokuapp.com/users')
-          .then(response => this.users = response.data)
-      .catch(error => console.log(error))
+    userupdated(event){
+      let index = this.users.findIndex(user => user.id === event.id);
+      this.users[index].name = event.name;
+      this.users[index].surname = event.surname;
+      this.users[index].email = event.email;
+      this.users[index].password = event.password;
     },
 
-    getCourses(){
+    usercreated(event) {
+      this.users.push(event)
+    },
+
+    userdeleted(event){
+      let index = this.users.findIndex(user => user.id === event)
+      this.users.splice(index,1)
+    }
+
+  },
+
+
+  mounted() {
+      axios.get('https://elearningplatform.herokuapp.com/users')
+          .then(response => this.users = response.data)
+          .catch(error => console.log(error))
+
       axios.get('https://elearningplatform.herokuapp.com/courses')
           .then(response => this.courses = response.data)
           .catch(error => console.log(error))
-    }
+
+      axios.get('https://elearningplatform.herokuapp.com/instructors')
+          .then(response => this.instructors = response.data)
+          .catch(error => console.log(error))
+
   }
 
 }
