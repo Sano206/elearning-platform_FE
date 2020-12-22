@@ -1,15 +1,11 @@
 <template>
-  <div class="course-card-wrapper">
+  <div class="course-card-wrapper" @click="showDetail">
     <div class="course-title">
       {{course.title}}
     </div>
     <p class="course-description">
       {{course.description}}
     </p>
-    <span class="course-author">
-      {{course.language}}
-    </span>
-
   </div>
 
 </template>
@@ -24,6 +20,11 @@ name: "CourseCard",
     }
   },
 
+  methods:{
+    showDetail(){
+      this.$router.push('/courses/'+this.course.id)
+    }
+  },
 
 
 }

@@ -64,9 +64,11 @@ export default {
         email: this.localUser.email,
         password: this.localUser.password
       })
-          .then(this.userEdited = null)
+          .then((response) =>{
+            this.userEdited = null;
+            this.$emit('userUpdated', response)
+          })
           .catch(error => console.log(error));
-      this.$emit('userUpdated', user)
     },
 
     deleteUser(user) {
