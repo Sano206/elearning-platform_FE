@@ -52,7 +52,7 @@ export default {
     },
 
     getCourses(){
-        axios.get('https://elearningplatform.herokuapp.com/courses')
+        axios.get('/courses')
             .then(response => this.courses = response.data)
             .catch(error => console.log(error))
     }
@@ -60,7 +60,7 @@ export default {
 
   created() {
     this.getCourses();
-    axios.get('https://elearningplatform.herokuapp.com/instructors')
+    axios.get('/instructors')
         .then(response => this.instructors = response.data)
         .catch(error => console.log(error))
   },

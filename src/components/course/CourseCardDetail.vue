@@ -9,11 +9,11 @@
       <button @click="courseEdited = false">Cancel</button>
     </div>
     <div v-else-if="course !== null">
-      <p>{{course.title}}</p>
+<!--      <p>{{course.title}}</p>
       <p>{{course.description}}</p>
       <p>{{course.fee}}</p>
       <p>{{course.language}}</p>
-      <p>{{course.instructor.user.name}}</p>
+      <p>{{course.instructor.user.name}}</p>-->
       <button @click="courseEdited = true">Edit</button>
     </div>
 
@@ -75,7 +75,7 @@ export default {              //TODO:fix render - top div v-if
   },
   methods:{
     updateCourse() {
-      axios.put('https://elearningplatform.herokuapp.com/courses/' + this.course.id, {
+      axios.put('/courses/' + this.course.id, {
         title: this.course.title,
         description: this.course.description,
         fee: this.course.fee,
@@ -89,7 +89,7 @@ export default {              //TODO:fix render - top div v-if
 
     },
     fetchDetail(){
-      axios.get('https://elearningplatform.herokuapp.com/courses/'+ this.$route.params.courseId)
+      axios.get('/courses/'+ this.$route.params.courseId)
           .then(response => this.course = response.data)
           .catch(error => console.log(error))
     },
@@ -110,5 +110,9 @@ export default {              //TODO:fix render - top div v-if
 </script>
 
 <style scoped>
+
+.course-detail-wrapper{
+  overflow: scroll;
+}
 
 </style>

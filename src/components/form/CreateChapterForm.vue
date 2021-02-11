@@ -25,7 +25,7 @@ export default {
 
   methods: {
     addChapter() {
-      axios.post('https://elearningplatform.herokuapp.com/courses/' + this.courseId + '/chapters', {
+      axios.post('/courses/' + this.courseId + '/chapters', {
         chapterTitle: this.chapterTitle,
         description: this.description,
         content: this.content,

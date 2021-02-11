@@ -11,15 +11,16 @@ export default {
 </script>
 
 <style scoped>
-
 .footer{
-  position: relative;
-  display: block;
-  left: 0;
+  clear: both;
+  position: absolute;
   bottom: 0;
+  left: 0;
   width: 100%;
   background-color: #333;
   color: white;
 }
+footer {
 
+}
 </style>

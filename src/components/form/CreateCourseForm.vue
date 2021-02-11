@@ -44,7 +44,7 @@ name: "CreateCourseForm",
     },
 
     addCourse(){
-      axios.post('https://elearningplatform.herokuapp.com/instructors/'+this.courseInstructor+'/courses', {
+      axios.post('/instructors/'+this.courseInstructor+'/courses', {
         title: this.courseTitle,
         description: this.courseDescription,
         fee: this.courseFee,

@@ -58,7 +58,7 @@ export default {
     },
 
     updateUser(user) {
-      axios.put('https://elearningplatform.herokuapp.com/users/' + user.id, {
+      axios.put('/users/' + user.id, {
         name: this.localUser.name,
         surname: this.localUser.surname,
         email: this.localUser.email,
@@ -73,7 +73,7 @@ export default {
 
     deleteUser(user) {
       try {
-        axios.delete('https://elearningplatform.herokuapp.com/users/' + user.id)
+        axios.delete('/users/' + user.id)
         this.$emit('userDeleted', user.id)
       } catch (error) {
         console.log(error)

@@ -31,7 +31,7 @@ export default {
 
   methods: {
     addUser() {
-      axios.post('https://elearningplatform.herokuapp.com/users', {
+      axios.post('/users', {
         name: this.userName,
         surname: this.userSurname,
         email: this.userEmail,
@@ -44,7 +44,7 @@ export default {
           .catch(error => console.log(error));
     },
     addInstructor() {
-      axios.post('https://elearningplatform.herokuapp.com/instructors', {
+      axios.post('/instructors', {
         name: this.userName,
         surname: this.userSurname,
         email: this.userEmail,

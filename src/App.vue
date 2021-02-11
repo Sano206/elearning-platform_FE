@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <app-nav></app-nav>
+      <app-nav class="app-nav"></app-nav>
 
-    <router-view></router-view>
+      <router-view class="router-view"></router-view>
 
-    <app-footer></app-footer>
-
-  </div>
+      <app-footer class="app-footer"></app-footer>
+    </div>
 </template>
 
 <script>
@@ -34,37 +33,15 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 50px;
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
+.router-view{
+  position: absolute;
+  left: 0;
+  width: 100%;
 }
 
-.col {
-  display: flex;
-  flex-direction: column;
-
-    &-1-1 {
-      flex: 0 0 100%;
-      max-width: 100%;
-    }
-
-    &-1-2 {
-      flex: 0 0 50%;
-      max-width: 50%;
-    }
-
-    &-1-3 {
-      flex: 0 0 33%;
-      max-width: 33%;
-    }
-
-    &-1-4 {
-      flex: 0 0 25%;
-      max-width: 25%;
-  }
   @media only screen and (max-width: 768px) {
     max-width: 50%;
     flex: 0 0 50%;
@@ -74,7 +51,7 @@ export default {
     max-width: 100%;
     flex: 0 0 100%;
   }
-}
+
 
 .card-wrapper {
   display: flex;

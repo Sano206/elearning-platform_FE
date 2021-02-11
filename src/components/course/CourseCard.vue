@@ -1,11 +1,14 @@
 <template>
-  <div class="course-card-wrapper" @click="showDetail">
+  <div class="course-card-wrapper">
     <div class="course-title">
       {{course.title}}
     </div>
     <p class="course-description">
       {{course.description}}
     </p>
+    <button @click="showDetail">Detail + edit</button>
+    <button @click="stepInto">Vstup do kurzu</button>
+
   </div>
 
 </template>
@@ -23,7 +26,11 @@ name: "CourseCard",
   methods:{
     showDetail(){
       this.$router.push('/courses/'+this.course.id)
-    }
+    },
+    stepInto(){
+      this.$router.push('/courses/app/'+this.course.id)
+    },
+
   },
 
 

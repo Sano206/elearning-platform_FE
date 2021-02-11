@@ -76,11 +76,11 @@ name: "UsersView",
   },
 
   created() {
-    axios.get('https://elearningplatform.herokuapp.com/users')
+    axios.get('/users')
         .then(response => this.users = response.data)
         .catch(error => console.log(error))
 
-    axios.get('https://elearningplatform.herokuapp.com/instructors')
+    axios.get('/instructors')
         .then(response => this.instructors = response.data)
         .catch(error => console.log(error))
 
