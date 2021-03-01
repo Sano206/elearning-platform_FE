@@ -1,11 +1,6 @@
-import CourseChapter from "@/components/course/CourseChapter";
-import CreateChapterForm from "@/components/form/CreateChapterForm";
 import axios from "axios";
 
 export const singleCourseMixin = {
-    components:{
-        CourseChapter
-    },
 
     methods:{
         fetchDetail(){

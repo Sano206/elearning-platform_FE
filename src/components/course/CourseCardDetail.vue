@@ -9,11 +9,11 @@
       <button @click="courseEdited = false">Cancel</button>
     </div>
     <div v-else-if="course !== null">
-<!--      <p>{{course.title}}</p>
+      <p>{{course.title}}</p>
       <p>{{course.description}}</p>
       <p>{{course.fee}}</p>
       <p>{{course.language}}</p>
-      <p>{{course.instructor.user.name}}</p>-->
+      <p>{{course.instructor.user.name}}</p>
       <button @click="courseEdited = true">Edit</button>
     </div>
 
@@ -49,6 +49,7 @@
 import axios from "axios";
 import CourseChapter from "@/components/course/CourseChapter";
 import CreateChapterForm from "@/components/form/CreateChapterForm";
+import {singleCourseMixin} from "@/components/mixins/courseMixin";
 
 export default {              //TODO:fix render - top div v-if
   name: "CourseCardDetail",
@@ -56,6 +57,7 @@ export default {              //TODO:fix render - top div v-if
     CourseChapter,
     CreateChapterForm
   },
+  mixins:[singleCourseMixin],
 
   data(){
     return{
@@ -88,11 +90,6 @@ export default {              //TODO:fix render - top div v-if
           .catch(error => console.log(error));
 
     },
-    fetchDetail(){
-      axios.get('/courses/'+ this.$route.params.courseId)
-          .then(response => this.course = response.data)
-          .catch(error => console.log(error))
-    },
 
     chapterCreated(){
       this.fetchDetail();
@@ -101,9 +98,6 @@ export default {              //TODO:fix render - top div v-if
     }
   },
 
-  created(){
-    this.fetchDetail()
-  }
 }
 
 

@@ -1,8 +1,15 @@
 <template>
   <div class="navbar">
     <ul>
-      <li><router-link to="/users">Users</router-link></li>
-      <li><router-link to="/courses">Courses</router-link></li>
+      <li>
+        <router-link to="/users">Users</router-link>
+      </li>
+      <li>
+        <router-link to="/courses">Courses</router-link>
+      </li>
+      <li>
+        <router-link v-if="$auth.isAuthenticated" to="/profile">Profile</router-link>
+      </li>
     </ul>
   </div>
 </template>
@@ -15,10 +22,14 @@ export default {
 
 <style scoped>
 
-.navbar{
+/*.navbar{
   position: absolute;
   left: 0;
   top: 0;
+  width: 100%;
+}*/
+.navbar {
+
   width: 100%;
 }
 

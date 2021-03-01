@@ -23,14 +23,15 @@
 </template>
 
 <script>
-import axios from "axios";
 import Sidebar from "@/components/app/Sidebar";
 import AppMenu from "@/components/app/AppMenu";
 import ContentVideo from "@/components/app/ContentVideo";
+import {singleCourseMixin} from "@/components/mixins/courseMixin";
 
 export default {
   name: "CourseAppView",
   components: {ContentVideo, AppMenu, Sidebar},
+  mixins:[singleCourseMixin],
 
   data(){
     return{
@@ -43,20 +44,12 @@ export default {
   },
 
   methods:{
-    fetchDetail(){
-      axios.get('/courses/'+ this.$route.params.courseId)
-          .then(response => this.course = response.data)
-          .catch(error => console.log(error))
-    },
 
     chapterSelected(event){
       this.selectedChapter=event;
     }
   },
 
-  created(){
-    this.fetchDetail()
-  },
 }
 </script>
 

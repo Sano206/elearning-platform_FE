@@ -7,7 +7,7 @@
       {{course.description}}
     </p>
     <button @click="showDetail">Detail + edit</button>
-    <button @click="stepInto">Vstup do kurzu</button>
+    <button @click="openCourse">Vstup do kurzu</button>
 
   </div>
 
@@ -27,7 +27,7 @@ name: "CourseCard",
     showDetail(){
       this.$router.push('/courses/'+this.course.id)
     },
-    stepInto(){
+    openCourse(){
       this.$router.push('/courses/app/'+this.course.id)
     },
 

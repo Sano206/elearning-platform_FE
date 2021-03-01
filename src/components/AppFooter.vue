@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <p>BlahBlah Footer</p>
+    <span>BlahBlah Footer</span>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-.footer{
+/*.footer{
   clear: both;
   position: absolute;
   bottom: 0;
@@ -19,8 +19,12 @@ export default {
   width: 100%;
   background-color: #333;
   color: white;
+}*/
+.footer{
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding-bottom: 10px;
 }
-footer {
 
-}
 </style>
