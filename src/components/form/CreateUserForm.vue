@@ -30,13 +30,20 @@ export default {
   },
 
   methods: {
-    addUser() {
-      axios.post('/users', {
-        name: this.userName,
-        surname: this.userSurname,
-        email: this.userEmail,
-        password: this.userPassword,
-
+    async addUser() {
+      const token = await this.$auth.getTokenSilently();
+      axios({
+        method: 'post',
+        url: '/users',
+        headers:{
+          Authorization: `Bearer ${token}`
+        },
+        data: {
+          name: this.$auth.user.given_name,
+          surname: this.$auth.user.family_name,
+          email: this.$auth.user.email,
+          password: "null",
+        }
       })
           .then((response) => {
             this.$emit('userCreated', response.data)
