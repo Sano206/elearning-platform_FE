@@ -40,7 +40,25 @@ export default {
         returnTo: window.location.origin
       });
     },
+  },
+
+  created() {
+    this.$store.dispatch("retrieveTokenFromAuthz")
   }
+
+  /*  async mounted() {
+      console.log("before")
+      const token = await this.$auth.getTokenSilently()
+      console.log(this.$auth.isAuthenticated)
+      console.log(token)
+      if(this.$auth.isAuthenticated){
+        console.log("start")
+        //const token = await this.$auth.getTokenSilently()
+        console.log("mid")
+        this.$store.commit("setToken", "token")
+        console.log("finnish")
+      }
+    }*/
 
 }
 </script>

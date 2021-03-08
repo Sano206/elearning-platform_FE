@@ -20,6 +20,7 @@
     <div v-if="newUser" class="row">
       <create-user-form
           class="card-wrapper"
+          :auth="$auth"
           @userCreated="userCreated"
           @instructorCreated="instructorCreated"
 

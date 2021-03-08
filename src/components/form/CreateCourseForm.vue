@@ -9,7 +9,7 @@
           v-for="instructor in instructors"
           :key="instructor.id"
           v-bind:value="instructor.id">
-        {{fullName(instructor)}}
+        {{instructor.id}}
       </option>
     </select>
     <button @click="addCourse">Submit</button>
@@ -44,11 +44,15 @@ name: "CreateCourseForm",
     },
 
     addCourse(){
-      axios.post('/instructors/'+this.courseInstructor+'/courses', {
-        title: this.courseTitle,
-        description: this.courseDescription,
-        fee: this.courseFee,
-        language: this.courseLanguage,
+      axios({
+        url: '/instructors/' + this.courseInstructor + '/courses',
+        method: 'post',
+        data: {
+          title: this.courseTitle,
+          description: this.courseDescription,
+          fee: this.courseFee,
+          language: this.courseLanguage,
+        }
       })
           .then((response) => {
             this.$emit('courseCreated', response.data)})

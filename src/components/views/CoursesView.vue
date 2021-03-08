@@ -23,6 +23,8 @@
       </div>
     </div>
 
+    <p>{{token}}</p>
+
   </div>
 </template>
 
@@ -33,36 +35,50 @@ import CreateCourseForm from "@/components/form/CreateCourseForm";
 
 export default {
   name: "CoursesView",
-  components:{
+  components: {
     CourseCard,
     CreateCourseForm,
   },
-  data(){
-    return{
+  data() {
+    return {
       courses: null,
       instructors: null,
       newCourse: false,
     }
   },
-  methods:{
-    courseCreated(event){
+
+  computed:{
+    token(){
+      return this.$store.getters.getToken
+    }
+  },
+
+  methods: {
+    courseCreated(event) {
       this.getCourses();
       this.courses.push(event);
       this.newCourse = false;
     },
 
-    getCourses(){
-        axios.get('/courses')
-            .then(response => this.courses = response.data)
-            .catch(error => console.log(error))
+    getCourses() {
+      axios({
+        url: '/courses',
+        method: 'get',
+      })
+          .then(response => this.courses = response.data)
+          .catch(error => console.log(error))
     }
   },
 
   created() {
     this.getCourses();
-    axios.get('/instructors')
+        axios({
+      url: '/instructors',
+      method: 'get'
+    })
         .then(response => this.instructors = response.data)
         .catch(error => console.log(error))
+
   },
 }
 </script>

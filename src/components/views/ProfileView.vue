@@ -9,12 +9,24 @@
     <div>
       <pre>{{ JSON.stringify($auth.user, null, 2) }}</pre>
     </div>
+
+    <create-user-form></create-user-form>
+
   </div>
 </template>
 
 <script>
+import UserCard from "@/components/UserCard";
+import CreateUserForm from "@/components/form/CreateUserForm";
+
 export default {
-name: "ProfileView"
+  name: "ProfileView",
+  components: {CreateUserForm, UserCard},
+  data() {
+    return {
+      user:null,
+    }
+  }
 }
 </script>
 

@@ -17,32 +17,33 @@ import axios from "axios";
 export default {
   name: "CreateUserForm",
   props:{
-
+    auth: {
+      type: Object,
+      default: null,
+    }
   },
 
   data() {
     return {
       userName: null,
       userSurname: null,
-      userEmail: null,
+      userEmail:null,
       userPassword: null,
     }
   },
 
   methods: {
-    async addUser() {
+    async addInstructor() {
       const token = await this.$auth.getTokenSilently();
       axios({
         method: 'post',
-        url: '/users',
+        url: '/instructors',
         headers:{
           Authorization: `Bearer ${token}`
         },
         data: {
-          name: this.$auth.user.given_name,
-          surname: this.$auth.user.family_name,
-          email: this.$auth.user.email,
-          password: "null",
+          introduction: "introduction to the isntructor",
+          qualification: "qualification of a uinstructoor",
         }
       })
           .then((response) => {
@@ -50,8 +51,8 @@ export default {
           })
           .catch(error => console.log(error));
     },
-    addInstructor() {
-      axios.post('/instructors', {
+    addUser() {
+      axios.post('/users', {
         name: this.userName,
         surname: this.userSurname,
         email: this.userEmail,
