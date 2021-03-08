@@ -23,7 +23,6 @@
       </div>
     </div>
 
-    <p>{{token}}</p>
 
   </div>
 </template>
@@ -32,6 +31,7 @@
 import axios from "axios";
 import CourseCard from "@/components/course/CourseCard";
 import CreateCourseForm from "@/components/form/CreateCourseForm";
+import {tokenMixin} from "@/components/mixins/tokenMixin";
 
 export default {
   name: "CoursesView",
@@ -39,19 +39,16 @@ export default {
     CourseCard,
     CreateCourseForm,
   },
+  mixins:[tokenMixin],
+
   data() {
     return {
       courses: null,
-      instructors: null,
       newCourse: false,
     }
   },
 
-  computed:{
-    token(){
-      return this.$store.getters.getToken
-    }
-  },
+
 
   methods: {
     courseCreated(event) {
@@ -72,13 +69,6 @@ export default {
 
   created() {
     this.getCourses();
-        axios({
-      url: '/instructors',
-      method: 'get'
-    })
-        .then(response => this.instructors = response.data)
-        .catch(error => console.log(error))
-
   },
 }
 </script>

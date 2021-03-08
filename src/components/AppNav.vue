@@ -2,9 +2,6 @@
   <div class="navbar">
     <ul>
       <li>
-        <router-link to="/users">Users</router-link>
-      </li>
-      <li>
         <router-link to="/courses">Courses</router-link>
       </li>
       <li>

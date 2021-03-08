@@ -20,6 +20,9 @@
 
 import AppNav from "@/components/AppNav";
 import AppFooter from "@/components/AppFooter";
+import axios from "axios";
+import {store} from "@/main";
+import {tokenMixin} from "@/components/mixins/tokenMixin";
 
 
 
@@ -29,6 +32,8 @@ export default {
     AppNav,
     AppFooter,
   },
+
+  mixins:[tokenMixin],
 
   methods: {
     login() {
@@ -44,7 +49,9 @@ export default {
 
   created() {
     this.$store.dispatch("retrieveTokenFromAuthz")
-  }
+  },
+
+
 
   /*  async mounted() {
       console.log("before")

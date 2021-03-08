@@ -4,9 +4,16 @@ export const tokenMixin = {
 
 
 
-    async beforeCreate(){
-        const token = await this.$auth.getTokenSilently();
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    computed:{
+        token(){
+            return this.$store.getters.token
+        }
+    },
 
+    mounted() {
+        window.axios.defaults.headers.common = {
+            "Authorization": `Bearer ${this.token}`,
+        };
     }
+
 }

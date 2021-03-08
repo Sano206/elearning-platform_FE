@@ -4,20 +4,13 @@
     <input type="text" placeholder="Description.." v-model="courseDescription">
     <input type="number" placeholder="Fee.." v-model.number="courseFee">
     <input type="text" placeholder="Language.." v-model="courseLanguage">
-    <select v-model="courseInstructor">
-      <option
-          v-for="instructor in instructors"
-          :key="instructor.id"
-          v-bind:value="instructor.id">
-        {{instructor.id}}
-      </option>
-    </select>
     <button @click="addCourse">Submit</button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import {tokenMixin} from "@/components/mixins/tokenMixin";
 
 export default {
 name: "CreateCourseForm",
@@ -25,13 +18,14 @@ name: "CreateCourseForm",
     instructors: null,
   },
 
+  mixins:[tokenMixin],
+
   data() {
     return{
       courseTitle:null,
       courseDescription: null,
       courseFee: null,
       courseLanguage: null,
-      courseInstructor: null,
       newCourse: null,
     }
   },
@@ -45,7 +39,7 @@ name: "CreateCourseForm",
 
     addCourse(){
       axios({
-        url: '/instructors/' + this.courseInstructor + '/courses',
+        url: '/courses',
         method: 'post',
         data: {
           title: this.courseTitle,
