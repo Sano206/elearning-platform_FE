@@ -15,7 +15,6 @@ import {tokenMixin} from "@/components/mixins/tokenMixin";
 export default {
 name: "CreateCourseForm",
   props:{
-    instructors: null,
   },
 
   mixins:[tokenMixin],
@@ -32,10 +31,6 @@ name: "CreateCourseForm",
 
 
   methods:{
-
-    fullName(instructor){
-      return instructor.user.name +' '+ instructor.user.surname
-    },
 
     addCourse(){
       axios({

@@ -5,6 +5,8 @@
     <input type="text" placeholder="Surname.." v-model="userSurname">
     <input type="text" placeholder="Email.." v-model="userEmail">
     <input type="text" placeholder="Password.." v-model="userPassword">
+    <input type="text" placeholder="Introduction.." v-model="introduction">
+    <input type="text" placeholder="Qualification.." v-model="qualification">
     <button @click="addUser">Add User</button>
     <button @click="addInstructor">Add Instructor</button>
   </div>
@@ -29,6 +31,8 @@ export default {
       userSurname: null,
       userEmail:null,
       userPassword: null,
+      introduction: null,
+      qualification: null,
     }
   },
 
@@ -42,8 +46,8 @@ export default {
           Authorization: `Bearer ${token}`
         },
         data: {
-          introduction: "introduction to the isntructor",
-          qualification: "qualification of a uinstructoor",
+          introduction: this.introduction,
+          qualification: this.qualification,
         }
       })
           .then((response) => {
@@ -51,7 +55,7 @@ export default {
           })
           .catch(error => console.log(error));
     },
-    addUser() {
+    /*addUser() {
       axios.post('/users', {
         name: this.userName,
         surname: this.userSurname,
@@ -64,7 +68,7 @@ export default {
             this.$emit('instructorCreated', response.data)
           })
           .catch(error => console.log(error));
-    },
+    },*/
   },
 
 }

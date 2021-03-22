@@ -17,7 +17,6 @@
     <div v-if="newCourse === true" class="row">
       <div class="card-wrapper">
         <create-course-form
-            :instructors="instructors"
             @courseCreated="courseCreated"
         ></create-course-form>
       </div>

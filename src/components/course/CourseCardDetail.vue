@@ -13,7 +13,6 @@
       <p>{{course.description}}</p>
       <p>{{course.fee}}</p>
       <p>{{course.language}}</p>
-      <p>{{course.instructor.user.name}}</p>
       <button @click="courseEdited = true">Edit</button>
     </div>
 
