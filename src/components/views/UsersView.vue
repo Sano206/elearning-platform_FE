@@ -21,7 +21,6 @@
       <create-user-form
           class="card-wrapper"
           :auth="$auth"
-          @userCreated="userCreated"
           @instructorCreated="instructorCreated"
 
       ></create-user-form>

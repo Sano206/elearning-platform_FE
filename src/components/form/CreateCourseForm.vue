@@ -32,10 +32,12 @@ name: "CreateCourseForm",
 
   methods:{
 
-    addCourse(){
+    async addCourse(){
+      const token =await this.$auth.getTokenSilently()
       axios({
         url: '/courses',
         method: 'post',
+        headers:{"Authorization": `Bearer ${token}`},
         data: {
           title: this.courseTitle,
           description: this.courseDescription,

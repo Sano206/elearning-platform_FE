@@ -3,11 +3,8 @@
   <div class="user-form">
     <input type="text" placeholder="Name.." v-model="userName">
     <input type="text" placeholder="Surname.." v-model="userSurname">
-    <input type="text" placeholder="Email.." v-model="userEmail">
-    <input type="text" placeholder="Password.." v-model="userPassword">
     <input type="text" placeholder="Introduction.." v-model="introduction">
     <input type="text" placeholder="Qualification.." v-model="qualification">
-    <button @click="addUser">Add User</button>
     <button @click="addInstructor">Add Instructor</button>
   </div>
 
@@ -15,6 +12,7 @@
 
 <script>
 import axios from "axios";
+import {tokenMixin} from "@/components/mixins/tokenMixin";
 
 export default {
   name: "CreateUserForm",
@@ -24,35 +22,29 @@ export default {
       default: null,
     }
   },
+  mixins:[tokenMixin],
 
   data() {
     return {
       userName: null,
       userSurname: null,
-      userEmail:null,
-      userPassword: null,
       introduction: null,
       qualification: null,
     }
   },
 
   methods: {
-    async addInstructor() {
-      const token = await this.$auth.getTokenSilently();
+    addInstructor() {
       axios({
         method: 'post',
         url: '/instructors',
-        headers:{
-          Authorization: `Bearer ${token}`
-        },
         data: {
+          name: this.userName,
+          surname: this.userSurname,
           introduction: this.introduction,
           qualification: this.qualification,
         }
       })
-          .then((response) => {
-            this.$emit('userCreated', response.data)
-          })
           .catch(error => console.log(error));
     },
     /*addUser() {
