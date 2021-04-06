@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div>
+    <div v-if="isLoaded">
       <img :src="$auth.user.picture">
 
-      <form class="row g-3">
-          <div class="mb-3">
+      <form>
+          <div class="form-group">
             <label for="name" class="form-label">Name:</label>
             <input type="text" class="form-control" id="name" v-model="authUser.given_name">
           </div>
-          <div class="mb-3">
+          <div class="form-group">
             <label for="surname" class="form-label">Surname:</label>
             <input type="text" class="form-control" id="surname" v-model="authUser.family_name">
           </div>
@@ -17,11 +17,11 @@
           </div>
 
           <div v-if="instructorInfo">
-            <div class="mb-3">
+            <div class="form-group">
               <label for="introduction" class="form-label">Introduction:</label>
               <textarea rows="3" class="form-control" id="introduction" v-model="instructorInfo.introduction"></textarea>
             </div>
-            <div class="mb-3">
+            <div class="form-group">
               <label for="qualification" class="form-label">Qualification:</label>
               <textarea rows="3" class="form-control" id="qualification"
                         v-model="instructorInfo.qualification"></textarea>
@@ -37,11 +37,11 @@
           </div>
 
           <div v-if="makeInstructor">
-            <div class="mb-3">
+            <div class="form-group">
               <label for="newIntroduction" class="form-label">Introduction:</label>
               <textarea rows="3" class="form-control" id="newIntroduction" v-model="newIntroduction"></textarea>
             </div>
-            <div class="mb-3">
+            <div class="form-group">
               <label for="newQualification" class="form-label">Qualification:</label>
               <textarea rows="3" class="form-control" id="newQualification" v-model="newQualification"></textarea>
             </div>
@@ -74,11 +74,12 @@ export default {
       makeInstructor: false,
       newIntroduction:null,
       newQualification:null,
+      isLoaded:false,
     }
   },
   mixins:[tokenMixin],
 
-   created(){
+    mounted(){
     this.authUser = this.$auth.user
     this.fetchInstructorInfo()
   },
@@ -126,11 +127,12 @@ export default {
         },
 
     async fetchInstructorInfo(){
-      axios.get('/instructors')
+      await axios.get('/instructors')
           .then(response => {
             this.instructorInfo = response.data
           })
           .catch(error => console.log(error))
+      this.isLoaded = true;
     }
   }
 }

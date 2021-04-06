@@ -8,12 +8,16 @@
     </p>
     <button @click="showDetail">Detail + edit</button>
     <button @click="openCourse">Vstup do kurzu</button>
+    <button @click="enroll">Prihlasit do kurzu</button>
 
   </div>
 
 </template>
 
 <script>
+import {tokenMixin} from "@/components/mixins/tokenMixin";
+import axios from "axios";
+
 export default {
 name: "CourseCard",
   props:{
@@ -22,14 +26,33 @@ name: "CourseCard",
       default: null,
     }
   },
+  mixins:[tokenMixin],
 
   methods:{
     showDetail(){
       this.$router.push('/courses/'+this.course.id)
     },
+
     openCourse(){
       this.$router.push('/courses/app/'+this.course.id)
     },
+
+    enroll(){
+      axios({
+        method: 'post',
+        url: '/enrollments',
+        data: {
+          courseId: this.course.id,
+        }
+      })
+          .then(response => {
+            if(response.data === ''){
+              alert("Already enrolled!")
+            }
+          })
+          .catch(error => console.log(error));
+    },
+
 
   },
 

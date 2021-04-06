@@ -83,8 +83,12 @@ export default {              //TODO:fix render - top div v-if
         language: this.course.language
       })
           .then((response) =>{
-            this.courseEdited = false;
-            this.$emit('courseUpdated', response)
+            if(response.data === ""){
+              alert("Cannot do!")
+            }else{
+              this.courseEdited = false;
+              this.$emit('courseUpdated', response)
+            }
           })
           .catch(error => console.log(error));
 

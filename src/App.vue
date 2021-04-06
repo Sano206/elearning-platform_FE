@@ -1,18 +1,13 @@
 <template>
   <div id="app">
-    <div class="app-container">
-      <app-nav class="app-nav"></app-nav>
-      <div v-if="!$auth.loading">
-        <!-- show login when not authenticated -->
-        <button v-if="!$auth.isAuthenticated" @click="login">Log in</button>
-        <!-- show logout when authenticated -->
-        <button v-if="$auth.isAuthenticated" @click="logout">Log out</button>
-      </div>
-      <router-view class="router-view"></router-view>
+      <app-nav role="navigation"></app-nav>
 
-    </div>
 
-      <app-footer class="app-footer"></app-footer>
+      <router-view v-if="token !== null" class="container"></router-view>
+
+      <app-footer></app-footer>
+
+
     </div>
 </template>
 
@@ -70,15 +65,20 @@ export default {
 }
 </script>
 
-<style lang="less">
-#app {
+<style>
+
+html, body, #app, .container{
+  min-height: 100vh;
+}
+
+
+/*#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  //margin: 50px;
-}
+}*/
 
 /*.router-view{
   position: absolute;
@@ -87,10 +87,11 @@ export default {
   overflow: auto;
 }*/
 
-body{
+/*body{
   width: 100%;
   margin: 0;
-}
+}*/
+/*
 
 .app-container{
   min-height: 98vh;
@@ -118,5 +119,6 @@ body{
   flex: 1 1 auto;
   margin: 10px;
 }
+*/
 
 </style>

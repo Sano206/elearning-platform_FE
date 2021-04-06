@@ -1,15 +1,26 @@
 <template>
-  <div class="main-container">
-
+  <div>
+<!--    <div class="row">
+      <div class="col-12 col-md-10">
+        <content-video
+            :videoSource="selectedChapter.content">
+        </content-video>
+      </div>
+      <div class="col-12 col-md-2">
+        <sidebar :chapters=course.courseChapters
+                 @chapterSelected="chapterSelected">
+        </sidebar>
+      </div>
+    </div>-->
     <div class="grid-container">
       <div class="content">
-       <content-video
-       :videoSource="selectedChapter.content">
-       </content-video>
+        <content-video
+            :videoSource="selectedChapter.content">
+        </content-video>
       </div>
       <div class="sidebar">
-        <sidebar :chapters = course.courseChapters
-        @chapterSelected="chapterSelected">
+        <sidebar :chapters=course.courseChapters
+                 @chapterSelected="chapterSelected">
         </sidebar>
       </div>
       <div class="menu">
@@ -31,22 +42,22 @@ import {singleCourseMixin} from "@/components/mixins/courseMixin";
 export default {
   name: "CourseAppView",
   components: {ContentVideo, AppMenu, Sidebar},
-  mixins:[singleCourseMixin],
+  mixins: [singleCourseMixin],
 
-  data(){
-    return{
-      course:null,
-      selectedChapter:{
+  data() {
+    return {
+      course: null,
+      selectedChapter: {
         type: Object,
         default: null,
       },
     }
   },
 
-  methods:{
+  methods: {
 
-    chapterSelected(event){
-      this.selectedChapter=event;
+    chapterSelected(event) {
+      this.selectedChapter = event;
     }
   },
 
@@ -56,28 +67,29 @@ export default {
 <style scoped>
 
 
-
-.content{
+.content {
   grid-area: content;
   background-color: black;
   max-width: 100%;
 }
 
-.sidebar{
+.sidebar {
   grid-area: sidebar;
   background-color: white;
 
 }
-.menu{
+
+.menu {
   grid-area: menu;
   border-bottom: solid lightgrey 2px;
 }
-.description{
+
+.description {
   grid-area: description;
 
 }
 
-.grid-container{
+.grid-container {
   max-width: 1700px;
   display: grid;
   grid-template-columns: 75% 25%;
@@ -89,7 +101,7 @@ export default {
   margin: auto;
 }
 
-.main-container{
+.main-container {
   align-content: center;
 }
 

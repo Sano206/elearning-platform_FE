@@ -15,6 +15,8 @@ import CourseCardDetail from "@/components/course/CourseCardDetail";
 import CourseAppView from "@/components/views/CourseAppView";
 import ProfileView from "@/components/views/ProfileView";
 import {authGuard} from "@/auth/authGuard";
+import MyCoursesView from "@/components/views/MyCoursesView";
+import InstructorCoursesView from "@/components/views/InstructorCoursesView";
 
 
 
@@ -30,7 +32,9 @@ Vue.use(Vuex)
 const routes = [
     {path: '/users', component: UsersView},
     {path: '/courses', component: CoursesView},
+    {path: '/myCourses', component: MyCoursesView},
     {path: '/courses/:courseId', component: CourseCardDetail},
+    {path: '/instructor/courses', component: InstructorCoursesView},
     {path: '/courses/app/:courseId', component: CourseAppView},
     {path: "/profile", name: "profile", component: ProfileView, beforeEnter: authGuard},
 ];

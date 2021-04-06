@@ -14,53 +14,34 @@
       </div>
     </div>
 
-    <button @click="newCourse = true">Create new Course</button>
-
-    <div v-if="newCourse === true" class="row">
-      <div class="card-wrapper">
-        <create-course-form
-            @courseCreated="courseCreated"
-        ></create-course-form>
-      </div>
-    </div>
 
 
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import CourseCard from "@/components/course/CourseCard";
-import CreateCourseForm from "@/components/form/CreateCourseForm";
 import {tokenMixin} from "@/components/mixins/tokenMixin";
 
 export default {
-  name: "CoursesView",
+  name: "InstructorCoursesView",
   components: {
     CourseCard,
-    CreateCourseForm,
   },
   mixins:[tokenMixin],
 
   data() {
     return {
-      courses: null,
-      newCourse: false,
+      courses:null,
     }
   },
 
 
 
   methods: {
-    courseCreated(event) {
-      this.getCourses();
-      this.courses.push(event);
-      this.newCourse = false;
-    },
-
-    getCourses() {
+    getMyCourses() {
       axios({
-        url: '/courses',
+        url: '/courses/instructor',
         method: 'get',
       })
           .then(response => this.courses = response.data)
@@ -68,8 +49,8 @@ export default {
     }
   },
 
-  mounted() {
-    this.getCourses();
+   mounted() {
+     this.getMyCourses();
   },
 }
 </script>
