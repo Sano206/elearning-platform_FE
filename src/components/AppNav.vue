@@ -10,10 +10,10 @@
           <router-link class="nav-link" to="/courses">Courses</router-link>
         </li>
         <li class="nav-item active">
-          <router-link class="nav-link" to="/myCourses">My Courses</router-link>
+          <router-link class="nav-link" v-if="$auth.isAuthenticated" to="/myCourses">My Courses</router-link>
         </li>
         <li class="nav-item active">
-          <router-link class="nav-link" to="/instructor/courses">Instructor courses</router-link>
+          <router-link class="nav-link" v-if="$auth.isAuthenticated && isInstructor" to="/instructor/courses">Instructor courses</router-link>
         </li>
         <li class="nav-item active">
           <router-link class="nav-link" v-if="$auth.isAuthenticated" to="/profile">Profile</router-link>

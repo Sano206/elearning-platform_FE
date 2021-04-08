@@ -6,9 +6,9 @@
     <p class="course-description">
       {{course.description}}
     </p>
-    <button @click="showDetail">Detail + edit</button>
+    <button @click="showDetail">Detail</button>
     <button @click="openCourse">Vstup do kurzu</button>
-    <button @click="enroll">Prihlasit do kurzu</button>
+    <button @click="enroll">Enroll</button>
 
   </div>
 
@@ -30,7 +30,11 @@ name: "CourseCard",
 
   methods:{
     showDetail(){
-      this.$router.push('/courses/'+this.course.id)
+      if(this.course.instructor.userID === this.$auth.user.sub){
+        this.$router.push('/instructor/courses/'+this.course.id)
+      }else{
+        this.$router.push('/courses/'+this.course.id)
+      }
     },
 
     openCourse(){

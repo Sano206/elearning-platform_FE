@@ -17,6 +17,7 @@ import ProfileView from "@/components/views/ProfileView";
 import {authGuard} from "@/auth/authGuard";
 import MyCoursesView from "@/components/views/MyCoursesView";
 import InstructorCoursesView from "@/components/views/InstructorCoursesView";
+import CourseCardDetailEditable from "@/components/course/CourseCardDetailEditable";
 
 
 
@@ -35,6 +36,7 @@ const routes = [
     {path: '/myCourses', component: MyCoursesView},
     {path: '/courses/:courseId', component: CourseCardDetail},
     {path: '/instructor/courses', component: InstructorCoursesView},
+    {path: '/instructor/courses/:courseId', component: CourseCardDetailEditable},
     {path: '/courses/app/:courseId', component: CourseAppView},
     {path: "/profile", name: "profile", component: ProfileView, beforeEnter: authGuard},
 ];
@@ -81,18 +83,25 @@ export const store = new Vuex.Store({
         }
     }*/
     state: {
-        token: null
+        token: null,
+        isInstructor: false,
     },
 
     getters:{
         token(state) {
             return state.token;
+        },
+        isInstructor(state) {
+            return state.isInstructor;
         }
     },
 
     mutations:{
         setToken(state, token) {
             state.token = token;
+        },
+        setInstructor(state, isInstructor) {
+            state.isInstructor = isInstructor;
         }
     },
 
@@ -114,6 +123,10 @@ export const store = new Vuex.Store({
                     }
                 });
             });
+        },
+
+        makeInstructorTrue(context){
+            context.commit("setInstructor", true)
         }
     }
 })

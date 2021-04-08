@@ -4,6 +4,7 @@
 
 
       <router-view v-if="token !== null" class="container"></router-view>
+      <loading class="container" v-else></loading>
 
       <app-footer></app-footer>
 
@@ -18,12 +19,14 @@ import AppFooter from "@/components/AppFooter";
 import axios from "axios";
 import {store} from "@/main";
 import {tokenMixin} from "@/components/mixins/tokenMixin";
+import Loading from "@/components/Loading";
 
 
 
 export default {
   name: 'App',
   components: {
+    Loading,
     AppNav,
     AppFooter,
   },
@@ -42,8 +45,13 @@ export default {
     },
   },
 
-  created() {
-    this.$store.dispatch("retrieveTokenFromAuthz")
+  async created() {
+    await this.$store.dispatch("retrieveTokenFromAuthz")
+    for(let role of (this.$auth.user["https:/e-learning-app.com/roles"])) {
+      if (role === "instructor") {
+        await this.$store.dispatch("makeInstructorTrue")
+      }
+    }
   },
 
 

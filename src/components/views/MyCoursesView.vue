@@ -49,8 +49,8 @@ components: {
     }
   },
 
-  async created() {
-    await this.getMyCourses();
+   mounted() {
+     this.getMyCourses();
   },
 }
 </script>

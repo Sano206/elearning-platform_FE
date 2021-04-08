@@ -12,11 +12,11 @@
             <label for="surname" class="form-label">Surname:</label>
             <input type="text" class="form-control" id="surname" v-model="authUser.family_name">
           </div>
-          <div class="col-auto" v-if="!instructorInfo">
+          <div class="col-auto" v-if="!isInstructor">
             <button @click="updateUser" class="btn btn-primary mb-3">Save user info</button>
           </div>
 
-          <div v-if="instructorInfo">
+          <div v-if="isInstructor">
             <div class="form-group">
               <label for="introduction" class="form-label">Introduction:</label>
               <textarea rows="3" class="form-control" id="introduction" v-model="instructorInfo.introduction"></textarea>
@@ -32,7 +32,7 @@
           </div>
 
 
-          <div class="col-auto" v-if="!instructorInfo && !makeInstructor">
+          <div class="col-auto" v-if="!isInstructor && !makeInstructor">
             <button @click="makeInstructor = !makeInstructor" class="btn btn-primary mb-3">Make instructor</button>
           </div>
 
@@ -51,7 +51,6 @@
           </div>
         </form>
 
-
     </div>
 
 
@@ -59,18 +58,15 @@
 </template>
 
 <script>
-import UserCard from "@/components/UserCard";
 import axios from "axios";
 import {tokenMixin} from "@/components/mixins/tokenMixin";
 
 export default {
   name: "ProfileView",
-  components: {UserCard},
   data() {
     return {
       authUser:null,
       instructorInfo:null,
-      isInstructor:false,
       makeInstructor: false,
       newIntroduction:null,
       newQualification:null,
@@ -79,9 +75,12 @@ export default {
   },
   mixins:[tokenMixin],
 
+
+
     mounted(){
     this.authUser = this.$auth.user
-    this.fetchInstructorInfo()
+    this.fetchInstructorInfo();
+
   },
 
   methods: {
@@ -129,7 +128,9 @@ export default {
     async fetchInstructorInfo(){
       await axios.get('/instructors')
           .then(response => {
-            this.instructorInfo = response.data
+            if(response.data !== ""){
+              this.instructorInfo = response.data
+            }
           })
           .catch(error => console.log(error))
       this.isLoaded = true;

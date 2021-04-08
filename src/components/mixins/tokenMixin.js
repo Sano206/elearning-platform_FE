@@ -7,6 +7,9 @@ export const tokenMixin = {
     computed:{
         token(){
             return this.$store.getters.token
+        },
+        isInstructor(){
+            return this.$store.getters.isInstructor
         }
     },
 
