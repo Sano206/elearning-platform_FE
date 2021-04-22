@@ -1,57 +1,48 @@
 <template>
-  <div v-if="course" class="course-detail-wrapper">
+  <div v-if="course">
 
-    <div>
-      <p>{{course.title}}</p>
-      <div v-html="course.description"></div>
-      <p>{{course.fee}}</p>
-      <p>{{course.language}}</p>
+    <div class="d-flex flex-row no-gutters">
+      <h1 class="header p-2">{{ course.title }}</h1>
+      <button class="btn px-4 mt-auto ml-auto" v-if="!isEnrolled && !justEnrolled" @click="enroll">Enroll</button>
+    </div>
+    <div class="d-flex flex-row pb-4 pt-2" v-if="!isEnrolled">
+      <h4>{{course.instructor.name}} {{course.instructor.surname}}</h4>
+      <span class="ml-auto mr-4 text-black-50">{{ course.fee }} €</span>
     </div>
 
+    <div v-html="course.description"></div>
 
-    <div class="course-chapter-wrapper">
-      <div
-          v-for="chapter in course.courseChapters"
-          :key="chapter.id"
-      >
-        <course-chapter
-          :chapter="chapter"
-          ></course-chapter>
-      </div>
-    </div>
 
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import CourseChapter from "@/components/course/CourseChapter";
 import CreateChapterForm from "@/components/form/CreateChapterForm";
-import {singleCourseMixin} from "@/components/mixins/courseMixin";
+import {enrollCheck, enrollmentsMixin, singleCourseMixin} from "@/components/mixins/courseMixin";
 import {tokenMixin} from "@/components/mixins/tokenMixin";
 
-export default {              //TODO:fix render - top div v-if
+export default {
   name: "CourseCardDetail",
-  components:{
+  components: {
     CourseChapter,
     CreateChapterForm
   },
-  mixins:[singleCourseMixin, tokenMixin],
+  mixins: [singleCourseMixin, tokenMixin, enrollCheck, enrollmentsMixin],
 
-  data(){
-    return{
-      course:null,
+  data() {
+    return {
+      course: null,
     }
   },
-  watch:{
-    '$route' (){
+
+
+  watch: {
+    '$route'() {
       this.fetchDetail();
     }
   },
-  methods:{
-
-  },
-
+  methods: {},
 
 
 }
@@ -60,9 +51,13 @@ export default {              //TODO:fix render - top div v-if
 </script>
 
 <style scoped>
+button{
+  background: #073b4c;
+  color: white;
+}
 
-.course-detail-wrapper{
-  overflow: scroll;
+.header{
+  border-bottom: #118ab2 solid 1px;
 }
 
 </style>

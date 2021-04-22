@@ -1,42 +1,65 @@
 <template>
-  <div v-if="course" class="course-detail-wrapper">
-    <div v-if="courseEdited === true">
-      <input type="text" v-model="course.title">
-      <input type="text" v-model="course.description">
-      <input type="text" v-model="course.fee">
-      <input type="text" v-model="course.language">
-      <button @click="updateCourse()">Update</button>
-      <button @click="courseEdited = false">Cancel</button>
-    </div>
-    <div v-else-if="course !== null">
-      <p>{{course.title}}</p>
-      <p>{{course.description}}</p>
-      <p>{{course.fee}}</p>
-      <p>{{course.language}}</p>
-      <button v-if="isInstructor" @click="courseEdited = true">Edit</button>
-    </div>
+  <div v-if="course">
+    <div v-if="courseEdited && !newChapter">
 
-
-    <div class="course-chapter-wrapper">
-      <div
-          v-for="chapter in course.courseChapters"
-          :key="chapter.id"
-      >
-        <course-chapter
-          :chapter="chapter"
-          ></course-chapter>
+      <div class="form-group">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" class="form-control" id="title" v-model="course.title">
       </div>
+
+      <div class="form-group">
+        <label for="short-description" class="form-label">Short description:</label>
+        <input type="text" class="form-control" id="short-description" v-model="course.shortDescription">
+      </div>
+
+      <div class="form-group">
+        <label for="description" class="form-label">Description:</label>
+
+        <textarea rows="10" type="text" class="form-control" id="description" v-model="course.description"/>
+      </div>
+
+      <div class="form-group">
+        <label for="fee" class="form-label">Fee:</label>
+        <input type="number" class="form-control" id="fee" v-model="course.fee">
+      </div>
+
+      <div class="form-group">
+        <label for="language" class="form-label">Language:</label>
+        <input type="text" class="form-control" id="language" v-model="course.language">
+      </div>
+
+      <div>
+        <button class="btn m-1 btn-dark" @click="updateCourse()">Update</button>
+        <button class="btn m-1 btn-danger" @click="courseEdited = false">Cancel</button>
+        <button class="btn m-1 btn-scheme" v-if="isInstructor" @click="createChapter">Create new Chapter</button>
+
+      </div>
+
+      <div class="course-chapter-wrapper">
+        <div
+            v-for="chapter in course.courseChapters"
+            :key="chapter.id"
+        >
+          <course-chapter
+              :chapter="chapter"
+          ></course-chapter>
+        </div>
+      </div>
+
+
     </div>
-
-
-    <button v-if="isInstructor" @click="newChapter = true">Create new Chapter</button>
+    <div v-else-if="course !== null && !newChapter">
+      <course-card-detail/>
+      <button class="btn btn-scheme" v-if="isInstructor" @click="courseEdited = true">Edit</button>
+    </div>
 
     <div v-if="newChapter === true" class="row">
-      <div class="course-chapter-wrapper">
+      <div class="container">
         <create-chapter-form
             :courseId="course.id"
             @chapterCreated="chapterCreated"
         ></create-chapter-form>
+        <button class="btn m-1 btn-danger" @click="newChapter = false">Cancel</button>
       </div>
     </div>
 
@@ -51,19 +74,21 @@ import CreateChapterForm from "@/components/form/CreateChapterForm";
 import {singleCourseMixin} from "@/components/mixins/courseMixin";
 import {tokenMixin} from "@/components/mixins/tokenMixin";
 import store from "@/store";
+import CourseCardDetail from "@/components/course/CourseCardDetail";
 
 export default {              //TODO:fix render - top div v-if
   name: "CourseCardDetailEditable",
-  components:{
+  components: {
+    CourseCardDetail,
     CourseChapter,
     CreateChapterForm
   },
-  mixins:[singleCourseMixin, tokenMixin],
+  mixins: [singleCourseMixin, tokenMixin],
 
-  data(){
-    return{
-      course:null,
-      courseEdited:{
+  data() {
+    return {
+      course: null,
+      courseEdited: {
         type: Boolean,
         default: false,
       },
@@ -72,32 +97,37 @@ export default {              //TODO:fix render - top div v-if
   },
 
 
-
-  watch:{
-    '$route' (){
+  watch: {
+    '$route'() {
       this.fetchDetail();
       this.courseEdited = false;
     }
   },
-  methods:{
-    checkInstructor(){
-      if(this.course.instructor.userID !== this.$auth.user.sub){
+  methods: {
+    checkInstructor() {
+      if (this.course.instructor.userID !== this.$auth.user.sub) {
         console.log(this.course.instructor)
-        this.$router.push('/courses/'+this.course.id)
+        this.$router.push('/courses/' + this.course.id)
       }
+    },
+
+    createChapter() {
+      this.newChapter = true
+      window.scrollTo(0, 0)
     },
 
     updateCourse() {
       axios.put('/courses/' + this.course.id, {
         title: this.course.title,
         description: this.course.description,
+        shortDescription: this.course.shortDescription,
         fee: this.course.fee,
         language: this.course.language
       })
-          .then((response) =>{
-            if(response.data === ""){
+          .then((response) => {
+            if (response.data === "") {
               alert("Cannot do!")
-            }else{
+            } else {
               this.courseEdited = false;
               this.$emit('courseUpdated', response)
             }
@@ -106,7 +136,7 @@ export default {              //TODO:fix render - top div v-if
 
     },
 
-    chapterCreated(){
+    chapterCreated() {
       this.fetchDetail();
       //this.courses.push(event);
       this.newChapter = false;
@@ -126,8 +156,5 @@ export default {              //TODO:fix render - top div v-if
 
 <style scoped>
 
-.course-detail-wrapper{
-  overflow: scroll;
-}
 
 </style>

@@ -2,6 +2,7 @@
   <div class="course-form">
     <input type="text" placeholder="Title.." v-model="courseTitle">
     <input type="text" placeholder="Description.." v-model="courseDescription">
+    <input type="text" placeholder="Short Description.." v-model="courseShortDescription">
     <input type="number" placeholder="Fee.." v-model.number="courseFee">
     <input type="text" placeholder="Language.." v-model="courseLanguage">
     <button @click="addCourse">Submit</button>
@@ -23,6 +24,7 @@ name: "CreateCourseForm",
     return{
       courseTitle:null,
       courseDescription: null,
+      courseShortDescription:null,
       courseFee: null,
       courseLanguage: null,
       newCourse: null,
@@ -41,6 +43,7 @@ name: "CreateCourseForm",
         data: {
           title: this.courseTitle,
           description: this.courseDescription,
+          courseShortDescription: this.courseShortDescription,
           fee: this.courseFee,
           language: this.courseLanguage,
         }

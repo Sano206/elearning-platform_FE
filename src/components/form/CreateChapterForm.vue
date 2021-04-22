@@ -1,9 +1,21 @@
 <template>
   <div>
-    <input type="text" placeholder="Title.." v-model="chapterTitle">
-    <input type="text" placeholder="Description.." v-model="description">
-    <input type="text" placeholder="Content.." v-model="content">
-    <button @click="addChapter">Submit</button>
+    <div class="form-group">
+      <label for="title" class="form-label">Title:</label>
+      <input type="text" class="form-control" id="title" v-model="chapterTitle">
+    </div>
+
+    <div class="form-group">
+      <label for="description" class="form-label">Description:</label>
+      <textarea rows="10" type="text" class="form-control" id="description" v-model="description"/>
+    </div>
+
+    <div class="form-group">
+      <label for="content" class="form-label">Content:</label>
+      <input type="text" class="form-control" id="content" v-model="content">
+    </div>
+
+    <button class="btn btn-scheme" @click="addChapter">Submit</button>
   </div>
 </template>
 
@@ -40,5 +52,8 @@ export default {
 </script>
 
 <style scoped>
-
+.btn-scheme {
+  background: #073b4c;
+  color: white;
+}
 </style>

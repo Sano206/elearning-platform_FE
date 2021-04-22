@@ -1,14 +1,16 @@
 <template>
   <div>
-    <p>{{localChapter.chapterTitle}}</p>
-    <p>{{localChapter.description}}</p>
-    <p>{{localChapter.content}}</p>
+    <h3>{{localChapter.chapterTitle}}</h3>
+    <div v-html="localChapter.description"></div>
+    <content-video :video-source="localChapter.content"/>
   </div>
 </template>
 
 <script>
+import ContentVideo from "@/components/app/ContentVideo";
 export default {
   name: "CourseChapter",
+  components: {ContentVideo},
   props:{
     chapter: null,
   },

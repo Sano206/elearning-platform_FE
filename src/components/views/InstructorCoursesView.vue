@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div v-if="courses !== null && !newCourse">
+    <button class="btn btn-scheme mb-4" v-if="!newCourse" @click="newCourse = true">Create new Course</button>
+
+    <div v-if="courses !== [] && !newCourse">
       <div class="row">
         <div
             class="col-12 col-md-6 col-lg-4"
@@ -17,7 +19,6 @@
       </div>
     </div>
 
-    <button v-if="!newCourse" @click="newCourse = true">Create new Course</button>
 
     <div v-if="newCourse" class="row">
       <div class="card-wrapper">
@@ -49,7 +50,7 @@ export default {
 
   data() {
     return {
-      courses: null,
+      courses: [],
       newCourse: false,
     }
   },
@@ -63,7 +64,6 @@ export default {
       })
           .then(response => {
             this.courses = response.data
-            console.log({courses: this.courses})
           })
           .catch(error => console.log(error))
     },
@@ -79,12 +79,15 @@ export default {
     this.getMyCourses()
   },*/
 
-  mounted() {
+  created() {
     this.getMyCourses();
   },
 }
 </script>
 
 <style scoped>
-
+.btn-scheme {
+  background: #073b4c;
+  color: white;
+}
 </style>

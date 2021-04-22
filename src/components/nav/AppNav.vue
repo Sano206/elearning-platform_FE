@@ -17,7 +17,7 @@
           name="My Courses"
         ></app-nav-item>
 
-        <app-nav-item
+        <app-nav-item v-if="isInstructor"
             route="instructor/courses"
             name="Instructor courses"
         ></app-nav-item>

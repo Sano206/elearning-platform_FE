@@ -11,7 +11,7 @@ export const singleCourseMixin = {
 
     },
 
-    created(){
+    mounted(){
         this.fetchDetail()
     }
 }
@@ -19,10 +19,7 @@ export const singleCourseMixin = {
 export const enrollmentsMixin = {
     data(){
         return{
-            enrollments:{
-                type: Object,
-                default: null,
-            },
+            enrollments:[]
         }
     },
 
@@ -39,7 +36,46 @@ export const enrollmentsMixin = {
 
     },
 
-    created(){
+    mounted(){
         this.getEnrolledCourses()
     }
+}
+
+export const enrollCheck = {
+    data() {
+        return {
+            justEnrolled: false,
+        }
+    },
+
+    computed: {
+        isEnrolled() {
+            for (let enrollment of this.enrollments) {
+                if (enrollment.course.id === this.course.id) {
+                    return true
+                }
+            }
+            return false
+        },
+    },
+
+    methods:{
+        enroll() {
+            axios({
+                method: 'post',
+                url: '/enrollments',
+                data: {
+                    courseId: this.course.id,
+                }
+            })
+                .then(response => {
+                    if (response.data === '') {
+                        alert("Already enrolled!")
+                    }
+                    this.justEnrolled = true;
+                })
+                .catch(error => console.log(error));
+        },
+    }
+
 }

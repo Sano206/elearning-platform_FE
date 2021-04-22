@@ -26,7 +26,7 @@
       <div class="menu">
         <app-menu></app-menu>
       </div>
-      <div class="description" v-text="selectedChapter.description"></div>
+      <div class="description" v-html="selectedChapter.description"></div>
     </div>
 
 

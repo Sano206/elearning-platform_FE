@@ -17,6 +17,7 @@
 <script>
 import {tokenMixin} from "@/components/mixins/tokenMixin";
 import axios from "axios";
+import {enrollCheck} from "@/components/mixins/courseMixin";
 
 export default {
   name: "CourseCard",
@@ -27,24 +28,8 @@ export default {
     },
     enrollments: null,
   },
-  mixins: [tokenMixin],
+  mixins: [tokenMixin, enrollCheck],
 
-  data() {
-    return {
-      justEnrolled: false,
-    }
-  },
-
-  computed: {
-    isEnrolled() {
-      for (let enrollment of this.enrollments) {
-        if (enrollment.course.id === this.course.id) {
-          return true
-        }
-      }
-      return false
-    },
-  },
 
   methods: {
     showDetail() {
@@ -60,22 +45,7 @@ export default {
     },
 
 
-    enroll() {
-      axios({
-        method: 'post',
-        url: '/enrollments',
-        data: {
-          courseId: this.course.id,
-        }
-      })
-          .then(response => {
-            if (response.data === '') {
-              alert("Already enrolled!")
-            }
-            this.justEnrolled = true;
-          })
-          .catch(error => console.log(error));
-    },
+
 
 
   },
@@ -88,6 +58,10 @@ export default {
 button{
   background: #073b4c;
   color: white;
+}
+
+h5{
+  cursor: pointer;
 }
 /*
 .course-card-wrapper{
