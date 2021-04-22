@@ -3,7 +3,7 @@
       <app-nav role="navigation"></app-nav>
 
 
-      <router-view v-if="token !== null" class="container"></router-view>
+      <router-view v-if="token !== null" class="container" style="margin-top: 20px"></router-view>
       <loading class="container" v-else></loading>
 
       <app-footer></app-footer>
@@ -14,7 +14,7 @@
 
 <script>
 
-import AppNav from "@/components/AppNav";
+import AppNav from "@/components/nav/AppNav";
 import AppFooter from "@/components/AppFooter";
 import axios from "axios";
 import {store} from "@/main";

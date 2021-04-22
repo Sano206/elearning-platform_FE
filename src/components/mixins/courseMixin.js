@@ -15,3 +15,31 @@ export const singleCourseMixin = {
         this.fetchDetail()
     }
 }
+
+export const enrollmentsMixin = {
+    data(){
+        return{
+            enrollments:{
+                type: Object,
+                default: null,
+            },
+        }
+    },
+
+    methods:{
+
+        getEnrolledCourses() {
+            axios({
+                url: '/enrollments',
+                method: 'get',
+            })
+                .then(response => this.enrollments = response.data)
+                .catch(error => console.log(error))
+        }
+
+    },
+
+    created(){
+        this.getEnrolledCourses()
+    }
+}

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="row">
-      <img class="col-12"  src="../assets/loading.gif" alt="loading...">
+    <div class="row justify-content-md-center align-items-center">
+      <img class="col-4"  src="../assets/loading.gif" alt="loading...">
     </div>
   </div>
 </template>

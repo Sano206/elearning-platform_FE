@@ -50,6 +50,7 @@ import CourseChapter from "@/components/course/CourseChapter";
 import CreateChapterForm from "@/components/form/CreateChapterForm";
 import {singleCourseMixin} from "@/components/mixins/courseMixin";
 import {tokenMixin} from "@/components/mixins/tokenMixin";
+import store from "@/store";
 
 export default {              //TODO:fix render - top div v-if
   name: "CourseCardDetailEditable",
@@ -69,6 +70,9 @@ export default {              //TODO:fix render - top div v-if
       newChapter: false,
     }
   },
+
+
+
   watch:{
     '$route' (){
       this.fetchDetail();
@@ -76,6 +80,13 @@ export default {              //TODO:fix render - top div v-if
     }
   },
   methods:{
+    checkInstructor(){
+      if(this.course.instructor.userID !== this.$auth.user.sub){
+        console.log(this.course.instructor)
+        this.$router.push('/courses/'+this.course.id)
+      }
+    },
+
     updateCourse() {
       axios.put('/courses/' + this.course.id, {
         title: this.course.title,
@@ -101,6 +112,12 @@ export default {              //TODO:fix render - top div v-if
       this.newChapter = false;
     }
   },
+
+
+  updated() {
+    this.checkInstructor()
+  }
+
 
 }
 

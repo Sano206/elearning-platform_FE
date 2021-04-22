@@ -3,7 +3,7 @@
 
     <div>
       <p>{{course.title}}</p>
-      <p>{{course.description}}</p>
+      <div v-html="course.description"></div>
       <p>{{course.fee}}</p>
       <p>{{course.language}}</p>
     </div>
@@ -51,6 +51,8 @@ export default {              //TODO:fix render - top div v-if
   methods:{
 
   },
+
+
 
 }
 

@@ -2,13 +2,14 @@
   <div>
     <div class="row">
       <div
-          class="col-12 col-md-4"
+          class="col-12 col-md-6 col-lg-4"
           v-for="enrollment in enrollments"
           :key="enrollment.course.id"
       >
         <div class="card-wrapper">
           <course-card
               :course="enrollment.course"
+              :enrollments="enrollments"
           />
         </div>
       </div>
@@ -22,36 +23,22 @@
 <script>
 import CourseCard from "@/components/course/CourseCard";
 import {tokenMixin} from "@/components/mixins/tokenMixin";
+import {enrollmentsMixin} from "@/components/mixins/courseMixin";
 
 export default {
   name: "MyCoursesView",
 components: {
     CourseCard,
   },
-  mixins:[tokenMixin],
+  mixins:[tokenMixin, enrollmentsMixin],
 
   data() {
     return {
-      enrollments:null,
     }
   },
 
 
 
-  methods: {
-    getMyCourses() {
-      axios({
-        url: '/enrollments',
-        method: 'get',
-      })
-          .then(response => this.enrollments = response.data)
-          .catch(error => console.log(error))
-    }
-  },
-
-   mounted() {
-     this.getMyCourses();
-  },
 }
 </script>
 

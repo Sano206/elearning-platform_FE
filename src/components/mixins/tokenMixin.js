@@ -13,7 +13,7 @@ export const tokenMixin = {
         }
     },
 
-    mounted() {
+    created() {
         window.axios.defaults.headers.common = {
             "Authorization": `Bearer ${this.token}`,
         };

@@ -1,27 +1,36 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="font-weight-bold  navbar sticky-top navbar-expand-lg navbar-light py-3" style="background-color: #118ab2;">
     <a class="navbar-brand" href="#">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <router-link class="nav-link" to="/courses">Courses</router-link>
-        </li>
-        <li class="nav-item active">
-          <router-link class="nav-link" v-if="$auth.isAuthenticated" to="/myCourses">My Courses</router-link>
-        </li>
-        <li class="nav-item active">
-          <router-link class="nav-link" v-if="$auth.isAuthenticated && isInstructor" to="/instructor/courses">Instructor courses</router-link>
-        </li>
-        <li class="nav-item active">
-          <router-link class="nav-link" v-if="$auth.isAuthenticated" to="/profile">Profile</router-link>
-        </li>
+
+        <app-nav-item
+            route="courses"
+            name="Courses"
+        ></app-nav-item>
+
+        <app-nav-item
+          route="myCourses"
+          name="My Courses"
+        ></app-nav-item>
+
+        <app-nav-item
+            route="instructor/courses"
+            name="Instructor courses"
+        ></app-nav-item>
+
+        <app-nav-item
+          route="profile"
+          name="Profile"
+        ></app-nav-item>
+
         <li class="nav-item active">
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="In progress.." aria-label="Search">
+            <button class="btn text-light my-2 my-sm-0" style="background: #073b4c" type="submit">Search</button>
           </form>
         </li>
       </ul>
@@ -36,10 +45,11 @@
 
 <script>
 import {tokenMixin} from "@/components/mixins/tokenMixin";
+import AppNavItem from "@/components/nav/AppNavItem";
 
 export default {
   name: "AppNav",
-
+  components: {AppNavItem},
   mixins:[tokenMixin],
 
   methods: {
@@ -57,6 +67,19 @@ export default {
 </script>
 
 <style scoped>
+
+input{
+  background: #118ab2;
+  border: #073b4c solid 2px;
+}
+
+::placeholder{
+  color: white;
+}
+
+*{
+  font-size: large;
+}
 
 /*.navbar{
   position: absolute;

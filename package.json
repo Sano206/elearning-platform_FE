@@ -11,6 +11,8 @@
     "@auth0/auth0-spa-js": "^1.13.6",
     "auth0": "^2.33.0",
     "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
     "file-system": "^2.2.2",
