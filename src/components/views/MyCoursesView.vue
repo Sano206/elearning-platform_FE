@@ -10,6 +10,7 @@
           <course-card
               :course="enrollment.course"
               :enrollments="enrollments"
+              :myCourses="true"
           />
         </div>
       </div>

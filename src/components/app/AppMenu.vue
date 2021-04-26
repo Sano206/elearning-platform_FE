@@ -1,16 +1,16 @@
 <template>
-  <div class="app-menu-container">
-    <ul>
-      <li>Overview</li>
-      <li>Resources</li>
-      <li>Whatever</li>
-    </ul>
+  <div>
+    <app-menu-item name="Overview"/>
+    <app-menu-item name="Resources"/>
+    <app-menu-item name="Whatever"/>
   </div>
 </template>
 
 <script>
+import AppMenuItem from "@/components/app/AppMenuItem";
 export default {
-  name: "AppMenu"
+  name: "AppMenu",
+  components: {AppMenuItem}
 }
 </script>
 

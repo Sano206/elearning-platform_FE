@@ -19,6 +19,11 @@
       </div>
 
       <div class="form-group">
+        <label for="thumbnail" class="form-label">Thumbnail:</label>
+        <input type="text" class="form-control" id="thumbnail" v-model="course.thumbnail">
+      </div>
+
+      <div class="form-group">
         <label for="fee" class="form-label">Fee:</label>
         <input type="number" class="form-control" id="fee" v-model="course.fee">
       </div>
@@ -88,10 +93,7 @@ export default {              //TODO:fix render - top div v-if
   data() {
     return {
       course: null,
-      courseEdited: {
-        type: Boolean,
-        default: false,
-      },
+      courseEdited:false,
       newChapter: false,
     }
   },
@@ -121,6 +123,7 @@ export default {              //TODO:fix render - top div v-if
         title: this.course.title,
         description: this.course.description,
         shortDescription: this.course.shortDescription,
+        thumbnail: this.course.thumbnail,
         fee: this.course.fee,
         language: this.course.language
       })
@@ -155,6 +158,9 @@ export default {              //TODO:fix render - top div v-if
 </script>
 
 <style scoped>
-
+.btn-scheme {
+  background: #073b4c;
+  color: white;
+}
 
 </style>

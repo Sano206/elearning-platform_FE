@@ -1,13 +1,13 @@
 <template>
 
   <div class="card" >
-    <img class="card-img-top" src="../../assets/witcher.jpg" alt="Card Image">
+    <img class="card-img-top" :src="course.thumbnail" alt="Card Image">
     <div class="card-body">
       <h5 class="card-title "><a @click="showDetail">{{ course.title }}</a></h5>
       <p class="card-text">{{
           course.shortDescription
         }}</p>
-      <button class="btn m-1" @click="openCourse">Vstup do kurzu</button>
+      <button class="btn m-1" v-if="myCourses" @click="openCourse">Vstup do kurzu</button>
       <button class="btn m-1" v-if="!isEnrolled && !justEnrolled" @click="enroll">Enroll</button>
     </div>
   </div>
@@ -27,6 +27,7 @@ export default {
       default: null,
     },
     enrollments: null,
+    myCourses: false,
   },
   mixins: [tokenMixin, enrollCheck],
 
