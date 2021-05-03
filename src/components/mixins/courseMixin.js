@@ -96,3 +96,39 @@ export const languages = {
     this.fetchLanguages();
   },
 };
+
+export const topicsMixin = {
+  data(){
+    return{
+      topics:{
+        type:Array,
+        default:[],
+      }
+    }
+  },
+  methods: {
+    getEnrolledCourses() {
+      axios({
+        url: "/enrollments",
+        method: "get",
+      })
+          .then((response) => (this.enrollments = response.data))
+          .catch((error) => console.log(error));
+    },
+
+    getTopics(){
+      axios({
+        url: "/courses/topics",
+        method: "get",
+      })
+          .then((response) => {
+            this.topics = response.data
+          })
+          .catch((error) => console.log(error));
+    }
+  },
+
+  created() {
+    this.getTopics()
+  },
+};

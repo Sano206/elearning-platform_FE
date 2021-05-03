@@ -1,11 +1,15 @@
 <template>
   <div id="app">
-    <app-nav role="navigation"></app-nav>
+    <app-nav
+        role="navigation"
+        :topics="topics"
+    />
 
     <router-view
       v-if="token !== null"
       class="container"
       style="margin-top: 20px"
+      :key="$route.fullPath"
     ></router-view>
     <loading class="container" v-else></loading>
 
@@ -18,6 +22,7 @@ import AppNav from "@/components/nav/AppNav";
 import AppFooter from "@/components/AppFooter";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
 import Loading from "@/components/Loading";
+import {topicsMixin} from "@/components/mixins/courseMixin";
 
 export default {
   name: "App",
@@ -27,7 +32,9 @@ export default {
     AppFooter,
   },
 
-  mixins: [tokenMixin],
+
+
+  mixins: [tokenMixin, topicsMixin],
 
   methods: {
     login() {
@@ -39,6 +46,8 @@ export default {
         returnTo: window.location.origin,
       });
     },
+
+
   },
 
   async created() {

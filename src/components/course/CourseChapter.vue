@@ -52,6 +52,7 @@
         <input
           type="number"
           :max="courseChaptersAmount"
+          min="1"
           class="form-control"
           id="position"
           v-model="position"
@@ -99,10 +100,12 @@ export default {
     this.init();
   },
 
+
   methods: {
     init() {
       this.localChapter = JSON.parse(JSON.stringify(this.chapter));
-      this.position = this.chapter.position;
+      this.position = this.chapter.position+1;
+      console.log("problem")
     },
 
     updateChapter() {

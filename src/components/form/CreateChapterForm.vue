@@ -31,6 +31,7 @@
       <input
         type="number"
         :max="courseChaptersAmount"
+        min="1"
         class="form-control"
         id="position"
         v-model="position"

@@ -2,7 +2,10 @@
   <div v-if="enrollment">
     <div class="row no-gutters mb-3">
       <div class="col-12 col-md-8 col-lg-9">
-        <content-video :videoSource="selectedChapter.content"> </content-video>
+        <content-video
+            :videoSource="selectedChapter.content"
+            :title="selectedChapter.chapterTitle"
+        />
       </div>
       <div class="col-12 col-md-4 col-lg-3">
         <sidebar
@@ -16,7 +19,7 @@
     <div>
       <app-menu class="row mb-3" />
       <h2 class="row mb-2">{{ selectedChapter.chapterTitle }}</h2>
-      <div class="description" v-html="selectedChapter.description"></div>
+      <div class="description row col-lg-9" v-html="selectedChapter.description"></div>
     </div>
   </div>
 </template>
@@ -70,7 +73,7 @@ export default {
           value: true,
         },
       })
-        .then((response) => console.log(response.data))
+        .then((response) => this.enrollment = response.data)
         .catch((error) => console.log(error));
     },
     updateProgressManually(value, chapter) {
@@ -81,7 +84,7 @@ export default {
           value: value,
         },
       })
-        .then((response) => console.log(response.data))
+        .then((response) => this.enrollment = response.data)
         .catch((error) => console.log(error));
     },
   },

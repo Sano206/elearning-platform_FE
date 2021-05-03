@@ -38,6 +38,25 @@
     </div>
 
     <div class="form-group">
+      <label for="language" class="form-label">Topic:</label>
+      <select
+          class="form-control"
+          v-model="courseTopic"
+          name="topic"
+          id="topic"
+      >
+        <option
+            type="text"
+            v-for="(topic, index) in topics"
+            :value="topic"
+            v-bind:key="index"
+        >
+          {{ topic }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
       <label for="thumbnail" class="form-label">Thumbnail:</label>
       <input
         type="text"
@@ -79,13 +98,13 @@
 <script>
 import axios from "axios";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
-import { languages } from "@/components/mixins/courseMixin";
+import {languages, topicsMixin} from "@/components/mixins/courseMixin";
 
 export default {
   name: "CreateCourseForm",
   props: {},
 
-  mixins: [tokenMixin, languages],
+  mixins: [tokenMixin, languages,topicsMixin],
 
   data() {
     return {
@@ -95,6 +114,7 @@ export default {
       thumbnail: null,
       courseFee: null,
       courseLanguage: null,
+      courseTopic: null,
       newCourse: null,
     };
   },
@@ -113,6 +133,7 @@ export default {
           thumbnail: this.thumbnail,
           fee: this.courseFee,
           language: this.courseLanguage,
+          topic: this.courseTopic,
         },
       })
         .then((response) => {

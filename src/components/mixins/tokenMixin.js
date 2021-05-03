@@ -1,4 +1,3 @@
-
 export const tokenMixin = {
   computed: {
     token() {

@@ -15,7 +15,7 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: "/users", component: UsersView },
-  { path: "/courses", component: CoursesView },
+  { path: "/courses/:topic?", component: CoursesView },
   { path: "/myCourses", component: MyCoursesView },
   { path: "/courses/:courseId", component: CourseCardDetail },
   {
