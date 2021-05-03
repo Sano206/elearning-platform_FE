@@ -1,10 +1,13 @@
 <template>
   <div class="course-card-wrapper">
-    <div v-if="userEdited === localUser.id" @keyup.enter="updateUser(localUser)">
-      <input type="text" v-model="localUser.name">
-      <input type="text" v-model="localUser.surname">
-      <input type="text" v-model="localUser.email">
-      <input type="text" v-model="localUser.password">
+    <div
+      v-if="userEdited === localUser.id"
+      @keyup.enter="updateUser(localUser)"
+    >
+      <input type="text" v-model="localUser.name" />
+      <input type="text" v-model="localUser.surname" />
+      <input type="text" v-model="localUser.email" />
+      <input type="text" v-model="localUser.password" />
       <button @click="updateUser(localUser)">Update</button>
     </div>
     <div v-else>
@@ -15,18 +18,14 @@
         {{ localUser.surname }}
       </p>
       <span class="course-author">
-      {{ localUser.email }}
-    </span>
-      <div
-          v-for="item in localUser.enrollments"
-          :key="item.id"
-      >{{ item.course.title }}
+        {{ localUser.email }}
+      </span>
+      <div v-for="item in localUser.enrollments" :key="item.id">
+        {{ item.course.title }}
       </div>
       <button @click="userEdited = localUser.id">Edit</button>
       <button @click="deleteUser(localUser)">Delete</button>
     </div>
-
-
   </div>
 </template>
 
@@ -39,13 +38,13 @@ export default {
     user: {
       type: Object,
       default: null,
-    }
+    },
   },
   data() {
     return {
       userEdited: null,
       localUser: null,
-    }
+    };
   },
 
   created() {
@@ -54,38 +53,37 @@ export default {
 
   methods: {
     init() {
-      this.localUser = JSON.parse(JSON.stringify(this.user))
+      this.localUser = JSON.parse(JSON.stringify(this.user));
     },
 
     updateUser(user) {
-      axios.put('/users/' + user.id, {
-        name: this.localUser.name,
-        surname: this.localUser.surname,
-        email: this.localUser.email,
-        password: this.localUser.password
-      })
-          .then((response) =>{
-            this.userEdited = null;
-            this.$emit('userUpdated', response)
-          })
-          .catch(error => console.log(error));
+      axios
+        .put("/users/" + user.id, {
+          name: this.localUser.name,
+          surname: this.localUser.surname,
+          email: this.localUser.email,
+          password: this.localUser.password,
+        })
+        .then((response) => {
+          this.userEdited = null;
+          this.$emit("userUpdated", response);
+        })
+        .catch((error) => console.log(error));
     },
 
     deleteUser(user) {
       try {
-        axios.delete('/users/' + user.id)
-        this.$emit('userDeleted', user.id)
+        axios.delete("/users/" + user.id);
+        this.$emit("userDeleted", user.id);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
-
   },
-}
+};
 </script>
 
 <style scoped>
-
 .course-card-wrapper {
   border: solid black;
   border-radius: 3px;
@@ -100,8 +98,8 @@ export default {
   margin: 8px;
   padding-bottom: 16px;
 
-  color: #FFA69E;
-  border-bottom: 1px solid #FFA69E;
+  color: #ffa69e;
+  border-bottom: 1px solid #ffa69e;
 }
 
 .course-description {
@@ -113,5 +111,4 @@ export default {
 .course-title {
   font-size: large;
 }
-
 </style>

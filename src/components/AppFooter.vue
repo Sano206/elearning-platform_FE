@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: "AppFooter"
-}
+  name: "AppFooter",
+};
 </script>
 
 <style>
@@ -22,11 +22,9 @@ export default {
   color: white;
 }*/
 
-.footer{
+.footer {
   background-color: #333;
   color: white;
   text-align: center;
 }
-
-
 </style>

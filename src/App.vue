@@ -1,37 +1,35 @@
 <template>
   <div id="app">
-      <app-nav role="navigation"></app-nav>
+    <app-nav role="navigation"></app-nav>
 
+    <router-view
+      v-if="token !== null"
+      class="container"
+      style="margin-top: 20px"
+    ></router-view>
+    <loading class="container" v-else></loading>
 
-      <router-view v-if="token !== null" class="container" style="margin-top: 20px"></router-view>
-      <loading class="container" v-else></loading>
-
-      <app-footer></app-footer>
-
-
-    </div>
+    <app-footer></app-footer>
+  </div>
 </template>
 
 <script>
-
 import AppNav from "@/components/nav/AppNav";
 import AppFooter from "@/components/AppFooter";
 import axios from "axios";
-import {store} from "@/main";
-import {tokenMixin} from "@/components/mixins/tokenMixin";
+import { store } from "@/main";
+import { tokenMixin } from "@/components/mixins/tokenMixin";
 import Loading from "@/components/Loading";
 
-
-
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Loading,
     AppNav,
     AppFooter,
   },
 
-  mixins:[tokenMixin],
+  mixins: [tokenMixin],
 
   methods: {
     login() {
@@ -40,21 +38,19 @@ export default {
     // Log the user out
     logout() {
       this.$auth.logout({
-        returnTo: window.location.origin
+        returnTo: window.location.origin,
       });
     },
   },
 
   async created() {
-    await this.$store.dispatch("retrieveTokenFromAuthz")
-    for(let role of (this.$auth.user["https:/e-learning-app.com/roles"])) {
+    await this.$store.dispatch("retrieveTokenFromAuthz");
+    for (let role of this.$auth.user["https:/e-learning-app.com/roles"]) {
       if (role === "instructor") {
-        await this.$store.dispatch("makeInstructorTrue")
+        await this.$store.dispatch("makeInstructorTrue");
       }
     }
   },
-
-
 
   /*  async mounted() {
       console.log("before")
@@ -69,16 +65,16 @@ export default {
         console.log("finnish")
       }
     }*/
-
-}
+};
 </script>
 
 <style>
-
-html, body, #app, .container{
+html,
+body,
+#app,
+.container {
   min-height: 100vh;
 }
-
 
 /*#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -128,5 +124,4 @@ html, body, #app, .container{
   margin: 10px;
 }
 */
-
 </style>

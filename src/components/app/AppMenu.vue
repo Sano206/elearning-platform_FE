@@ -1,8 +1,8 @@
 <template>
   <div>
-    <app-menu-item name="Overview"/>
-    <app-menu-item name="Resources"/>
-    <app-menu-item name="Whatever"/>
+    <app-menu-item name="Overview" />
+    <app-menu-item name="Resources" />
+    <app-menu-item name="Whatever" />
   </div>
 </template>
 
@@ -10,18 +10,15 @@
 import AppMenuItem from "@/components/app/AppMenuItem";
 export default {
   name: "AppMenu",
-  components: {AppMenuItem}
-}
+  components: { AppMenuItem },
+};
 </script>
 
 <style scoped>
-
-li{
+li {
   display: inline;
   padding: 15px;
   font-size: 30px;
   float: left;
 }
-
-
 </style>

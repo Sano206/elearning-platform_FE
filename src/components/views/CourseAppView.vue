@@ -1,27 +1,23 @@
 <template>
   <div v-if="enrollment">
-
     <div class="row no-gutters mb-3">
       <div class="col-12 col-md-8 col-lg-9">
-        <content-video
-            :videoSource="selectedChapter.content">
-        </content-video>
+        <content-video :videoSource="selectedChapter.content"> </content-video>
       </div>
       <div class="col-12 col-md-4 col-lg-3">
         <sidebar
-            :chapters=enrollment.course.courseChapters
-            :progress=enrollment.progress
-            @chapterSelected="chapterSelected"
-            @progressChange="updateProgressManually"
+          :chapters="enrollment.course.courseChapters"
+          :progress="enrollment.progress"
+          @chapterSelected="chapterSelected"
+          @progressChange="updateProgressManually"
         />
       </div>
     </div>
     <div>
-        <app-menu class="row"/>
+      <app-menu class="row mb-3" />
+      <h2 class="row mb-2">{{ selectedChapter.chapterTitle }}</h2>
       <div class="description" v-html="selectedChapter.description"></div>
     </div>
-
-
   </div>
 </template>
 
@@ -29,14 +25,14 @@
 import Sidebar from "@/components/app/Sidebar";
 import AppMenu from "@/components/app/AppMenu";
 import ContentVideo from "@/components/app/ContentVideo";
-import {singleCourseMixin} from "@/components/mixins/courseMixin";
+import { singleCourseMixin } from "@/components/mixins/courseMixin";
 import axios from "axios";
-import {tokenMixin} from "@/components/mixins/tokenMixin";
+import { tokenMixin } from "@/components/mixins/tokenMixin";
 
 export default {
   name: "CourseAppView",
-  components: {ContentVideo, AppMenu, Sidebar},
-  mixins:[tokenMixin],
+  components: { ContentVideo, AppMenu, Sidebar },
+  mixins: [tokenMixin],
 
   data() {
     return {
@@ -45,11 +41,10 @@ export default {
         type: Object,
         default: null,
       },
-    }
+    };
   },
 
   methods: {
-
     chapterSelected(event) {
       this.selectedChapter = event;
       this.updateProgress();
@@ -57,82 +52,46 @@ export default {
 
     getEnrolledCourses() {
       axios({
-        url: '/enrollments/'+ this.$route.params.courseId,
-        method: 'get',
+        url: "/enrollments/" + this.$route.params.courseId,
+        method: "get",
       })
-          .then(response => this.enrollment = response.data)
-          .catch(error => console.log(error))
+        .then((response) => (this.enrollment = response.data))
+        .catch((error) => console.log(error));
     },
 
     updateProgress() {
       axios({
-        url: '/enrollments/'+this.enrollment.course.id + '/' + this.selectedChapter.id,
-        method: 'put',
-        data:{
-          value: true
-        }
+        url:
+          "/enrollments/" +
+          this.enrollment.course.id +
+          "/" +
+          this.selectedChapter.id,
+        method: "put",
+        data: {
+          value: true,
+        },
       })
-          .then(response => console.log(response.data))
-          .catch(error => console.log(error))
+        .then((response) => console.log(response.data))
+        .catch((error) => console.log(error));
     },
     updateProgressManually(value, chapter) {
       axios({
-        url: '/enrollments/'+this.enrollment.course.id + '/' + chapter,
-        method: 'put',
-        data:{
-          value: value
-        }
+        url: "/enrollments/" + this.enrollment.course.id + "/" + chapter,
+        method: "put",
+        data: {
+          value: value,
+        },
       })
-          .then(response => console.log(response.data))
-          .catch(error => console.log(error))
+        .then((response) => console.log(response.data))
+        .catch((error) => console.log(error));
     },
   },
 
-  mounted(){
-    this.getEnrolledCourses()
+  mounted() {
+    this.getEnrolledCourses();
   },
-
-
-
-}
+};
 </script>
 
 <style scoped>
-
-
-/*.content {*/
-/*  grid-area: content;*/
-/*  background-color: black;*/
-/*  max-width: 100%;*/
-/*}*/
-
-/*.sidebar {*/
-/*  grid-area: sidebar;*/
-/*  background-color: white;*/
-
-/*}*/
-
-/*.menu {*/
-/*  grid-area: menu;*/
-/*  border-bottom: solid lightgrey 2px;*/
-/*}*/
-
-/*.description {*/
-/*  grid-area: description;*/
-
-/*}*/
-
-/*.grid-container {*/
-/*  max-width: 1700px;*/
-/*  display: grid;*/
-/*  grid-template-columns: 75% 25%;*/
-/*  grid-template-rows: auto auto auto;*/
-/*  grid-template-areas:*/
-/*    "content sidebar"*/
-/*    "menu ."*/
-/*    "description .";*/
-/*  margin: auto;*/
-/*}*/
-
-
 </style>

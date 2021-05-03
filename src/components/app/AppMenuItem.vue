@@ -4,20 +4,19 @@
       {{ name }}
     </span>
   </div>
-
 </template>
 
 <script>
 export default {
   name: "AppMenuItem",
   props: {
-    name: ''
-  }
-}
+    name: "",
+  },
+};
 </script>
 
 <style scoped>
-span{
+span {
   font-size: 35px;
   border-bottom: #118ab2 solid 1px;
 }
