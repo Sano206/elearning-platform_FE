@@ -10,7 +10,10 @@
 export default {
   name: "AppMenuItem",
   props: {
-    name: "",
+    name: {
+      type:String,
+      default: '',
+    },
   },
 };
 </script>

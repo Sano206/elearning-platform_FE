@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import CourseChapter from "@/components/course/CourseChapter";
-import CreateChapterForm from "@/components/form/CreateChapterForm";
 import {
   enrollCheck,
   enrollmentsMixin,
@@ -44,8 +42,6 @@ import { tokenMixin } from "@/components/mixins/tokenMixin";
 export default {
   name: "CourseCardDetail",
   components: {
-    CourseChapter,
-    CreateChapterForm,
   },
   mixins: [singleCourseMixin, tokenMixin, enrollCheck, enrollmentsMixin],
 

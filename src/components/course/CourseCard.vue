@@ -23,7 +23,6 @@
 
 <script>
 import { tokenMixin } from "@/components/mixins/tokenMixin";
-import axios from "axios";
 import { enrollCheck } from "@/components/mixins/courseMixin";
 
 export default {
@@ -34,17 +33,12 @@ export default {
       default: null,
     },
     enrollments: null,
-    myCourses: false,
+    myCourses: {
+      type: Boolean,
+      default: false,
+    }
   },
   mixins: [tokenMixin, enrollCheck],
-
-  computed: {
-    localTitle() {
-      if (this.course.title.length < 150) {
-        console.log("asdf");
-      }
-    },
-  },
 
   methods: {
     showDetail() {

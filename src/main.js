@@ -1,7 +1,4 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
-import Vuex from "vuex";
-// eslint-disable-next-line no-unused-vars
 import axios from "axios";
 // Import the Auth0 configuration
 import { domain, clientId, audience } from "../auth_config.json";
@@ -9,7 +6,7 @@ import { domain, clientId, audience } from "../auth_config.json";
 import store from "@/store";
 import router from "@/router";
 // Import the plugin here
-import { Auth0Plugin, getInstance } from "./auth";
+import { Auth0Plugin } from "./auth";
 import App from "./App.vue";
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";

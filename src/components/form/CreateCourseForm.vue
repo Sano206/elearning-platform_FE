@@ -63,8 +63,9 @@
       >
         <option
           type="text"
-          v-for="language in languages"
+          v-for="(language, index) in languages"
           :value="language.name"
+          v-bind:key="index"
         >
           {{ language.name }}
         </option>

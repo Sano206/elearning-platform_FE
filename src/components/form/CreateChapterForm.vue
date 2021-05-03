@@ -48,7 +48,7 @@ export default {
   name: "CreateChapterForm",
   props: {
     courseId: null,
-    courseChaptersAmount: 0,
+    courseChaptersAmount: Number,
   },
   data() {
     return {

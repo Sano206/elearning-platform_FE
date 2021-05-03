@@ -25,7 +25,6 @@
 import Sidebar from "@/components/app/Sidebar";
 import AppMenu from "@/components/app/AppMenu";
 import ContentVideo from "@/components/app/ContentVideo";
-import { singleCourseMixin } from "@/components/mixins/courseMixin";
 import axios from "axios";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
 
@@ -93,5 +92,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

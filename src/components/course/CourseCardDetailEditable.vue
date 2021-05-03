@@ -58,7 +58,6 @@
         />
       </div>
 
-
       <div class="form-group">
         <label for="language" class="form-label">Language:</label>
         <select
@@ -69,8 +68,9 @@
         >
           <option
             type="text"
-            v-for="language in languages"
+            v-for="(language, index) in languages"
             :value="language.name"
+            v-bind:key="index"
           >
             {{ language.name }}
           </option>
@@ -132,7 +132,6 @@ import CourseChapter from "@/components/course/CourseChapter";
 import CreateChapterForm from "@/components/form/CreateChapterForm";
 import { languages, singleCourseMixin } from "@/components/mixins/courseMixin";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
-import store from "@/store";
 import CourseCardDetail from "@/components/course/CourseCardDetail";
 
 export default {

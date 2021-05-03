@@ -4,7 +4,7 @@
       <span> Course chapters </span>
     </div>
     <div class="sidebar-items">
-      <div v-for="(chapter, index) in chapters" :key="chapter.id">
+      <div v-for="(chapter) in chapters" :key="chapter.id">
         <sidebar-item
           :chapter="chapter"
           :progress="localProgress"

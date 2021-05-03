@@ -76,7 +76,7 @@ export default {
   components: { ContentVideo },
   props: {
     chapter: null,
-    courseChaptersAmount: 0,
+    courseChaptersAmount: Number,
   },
 
   mixins: [tokenMixin],
