@@ -53,11 +53,13 @@
                 type="search"
                 placeholder="In progress.."
                 aria-label="Search"
+                v-model="substring"
             />
             <button
                 class="btn text-light my-2 my-sm-0"
                 style="background: #073b4c"
                 type="submit"
+                @click="searchCourses"
             >
               Search
             </button>
@@ -97,6 +99,11 @@ export default {
   props: {
     topics: null,
   },
+  data(){
+    return{
+      substring:'',
+    }
+  },
 
   methods: {
     login() {
@@ -108,6 +115,9 @@ export default {
         returnTo: window.location.origin,
       });
     },
+    searchCourses(){
+      this.$router.push('/courses/title/'+ this.substring)
+    }
   },
 
 

@@ -6,6 +6,9 @@ export const tokenMixin = {
     isInstructor() {
       return this.$store.getters.isInstructor;
     },
+    isAdmin() {
+      return this.$store.getters.isAdmin;
+    },
   },
 
   mounted() {

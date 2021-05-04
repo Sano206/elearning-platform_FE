@@ -56,6 +56,9 @@ export default {
       if (role === "instructor") {
         await this.$store.dispatch("makeInstructorTrue");
       }
+      if (role === "admin") {
+        await this.$store.dispatch("makeAdminTrue");
+      }
     }
   },
 

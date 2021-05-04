@@ -8,6 +8,7 @@ const store = new Vuex.Store({
   state: {
     token: null,
     isInstructor: false,
+    isAdmin: false,
   },
 
   getters: {
@@ -17,6 +18,9 @@ const store = new Vuex.Store({
     isInstructor(state) {
       return state.isInstructor;
     },
+    isAdmin(state) {
+      return state.isAdmin;
+    },
   },
 
   mutations: {
@@ -25,6 +29,9 @@ const store = new Vuex.Store({
     },
     setInstructor(state, isInstructor) {
       state.isInstructor = isInstructor;
+    },
+    setAdmin(state, isAdmin) {
+      state.isAdmin = isAdmin;
     },
   },
 
@@ -50,6 +57,9 @@ const store = new Vuex.Store({
 
     makeInstructorTrue(context) {
       context.commit("setInstructor", true);
+    },
+    makeAdminTrue(context) {
+      context.commit("setAdmin", true);
     },
   },
 });
