@@ -4,7 +4,7 @@
       <span> Course chapters </span>
     </div>
     <div class="sidebar-items">
-      <div v-for="(chapter) in chapters" :key="chapter.id">
+      <div v-for="chapter in chapters" :key="chapter.id">
         <sidebar-item
           :chapter="chapter"
           :progress="localProgress"
@@ -47,7 +47,7 @@ export default {
     },
 
     findLastSeen() {
-      for (let i = this.chapters.length-1; i >= 0; i--) {
+      for (let i = this.chapters.length - 1; i >= 0; i--) {
         if (this.progress.includes(this.chapters[i].id)) {
           return i;
         }
@@ -58,7 +58,7 @@ export default {
 
   created() {
     let index = this.findLastSeen();
-    console.log(index)
+    console.log(index);
     if (this.progress.length !== 0 && index !== this.chapters.length - 1) {
       index++;
     }

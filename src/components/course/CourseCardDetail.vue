@@ -4,14 +4,14 @@
       <h1 class="header p-2">{{ course.title }}</h1>
       <button
         class="btn px-4 mt-auto ml-auto"
-        v-if="isEnrolled || justEnrolled && this.$auth.isAuthenticated"
+        v-if="isEnrolled || (justEnrolled && this.$auth.isAuthenticated)"
         @click="openCourse"
       >
         Enter the Course
       </button>
       <button
         class="btn px-4 mt-auto ml-auto"
-        v-if="!isEnrolled && !justEnrolled &&this.$auth.isAuthenticated"
+        v-if="!isEnrolled && !justEnrolled && this.$auth.isAuthenticated"
         @click="enroll"
       >
         Enroll
@@ -41,8 +41,7 @@ import { tokenMixin } from "@/components/mixins/tokenMixin";
 
 export default {
   name: "CourseCardDetail",
-  components: {
-  },
+  components: {},
   mixins: [singleCourseMixin, tokenMixin, enrollCheck, enrollmentsMixin],
 
   data() {

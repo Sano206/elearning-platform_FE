@@ -34,7 +34,7 @@ export const enrollmentsMixin = {
   },
 
   mounted() {
-    if(this.$auth.isAuthenticated){
+    if (this.$auth.isAuthenticated) {
       this.getEnrolledCourses();
     }
   },
@@ -100,30 +100,29 @@ export const languages = {
 };
 
 export const topicsMixin = {
-  data(){
-    return{
-      topics:{
-        type:Array,
-        default:[],
+  data() {
+    return {
+      topics: {
+        type: Array,
+        default: [],
       },
-      course:null,
-    }
+      course: null,
+    };
   },
   methods: {
-    getTopics(){
+    getTopics() {
       axios({
         url: "/courses/topics",
         method: "get",
       })
-          .then((response) => {
-            this.topics = response.data
-          })
-          .catch((error) => console.log(error));
+        .then((response) => {
+          this.topics = response.data;
+        })
+        .catch((error) => console.log(error));
     },
-
   },
 
   created() {
-    this.getTopics()
+    this.getTopics();
   },
 };

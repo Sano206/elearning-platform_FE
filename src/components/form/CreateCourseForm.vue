@@ -40,16 +40,16 @@
     <div class="form-group">
       <label for="language" class="form-label">Topic:</label>
       <select
-          class="form-control"
-          v-model="courseTopic"
-          name="topic"
-          id="topic"
+        class="form-control"
+        v-model="courseTopic"
+        name="topic"
+        id="topic"
       >
         <option
-            type="text"
-            v-for="(topic, index) in topics"
-            :value="topic"
-            v-bind:key="index"
+          type="text"
+          v-for="(topic, index) in topics"
+          :value="topic"
+          v-bind:key="index"
         >
           {{ topic }}
         </option>
@@ -98,13 +98,13 @@
 <script>
 import axios from "axios";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
-import {languages, topicsMixin} from "@/components/mixins/courseMixin";
+import { languages, topicsMixin } from "@/components/mixins/courseMixin";
 
 export default {
   name: "CreateCourseForm",
   props: {},
 
-  mixins: [tokenMixin, languages,topicsMixin],
+  mixins: [tokenMixin, languages, topicsMixin],
 
   data() {
     return {

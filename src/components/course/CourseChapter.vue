@@ -100,12 +100,11 @@ export default {
     this.init();
   },
 
-
   methods: {
     init() {
       this.localChapter = JSON.parse(JSON.stringify(this.chapter));
-      this.position = this.chapter.position+1;
-      console.log("problem")
+      this.position = this.chapter.position + 1;
+      console.log("problem");
     },
 
     updateChapter() {

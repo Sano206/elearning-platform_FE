@@ -11,8 +11,8 @@ export default {
   name: "AppMenuItem",
   props: {
     name: {
-      type:String,
-      default: '',
+      type: String,
+      default: "",
     },
   },
 };

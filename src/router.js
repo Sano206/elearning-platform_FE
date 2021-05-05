@@ -19,7 +19,8 @@ const routes = [
   {
     path: "/user/courses",
     component: MyCoursesView,
-    beforeEnter: authGuard, },
+    beforeEnter: authGuard,
+  },
   { path: "/detail/:courseId", component: CourseCardDetail },
   {
     path: "/instructor/courses",

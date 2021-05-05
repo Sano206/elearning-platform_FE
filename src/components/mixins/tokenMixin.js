@@ -12,10 +12,10 @@ export const tokenMixin = {
   },
 
   mounted() {
-    if(this.$auth.isAuthenticated){
+    if (this.$auth.isAuthenticated) {
       window.axios.defaults.headers.common = {
         Authorization: `Bearer ${this.token}`,
-      }
+      };
     }
   },
 };

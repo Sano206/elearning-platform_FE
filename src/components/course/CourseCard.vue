@@ -36,16 +36,18 @@ export default {
     myCourses: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   mixins: [tokenMixin, enrollCheck],
 
   methods: {
     showDetail() {
-      if(!this.$auth.isAuthenticated || !(this.course.instructor.userID === this.$auth.user.sub)){
+      if (
+        !this.$auth.isAuthenticated ||
+        !(this.course.instructor.userID === this.$auth.user.sub)
+      ) {
         this.$router.push("/detail/" + this.course.id);
-      }
-      else if (this.course.instructor.userID === this.$auth.user.sub) {
+      } else if (this.course.instructor.userID === this.$auth.user.sub) {
         this.$router.push("/instructor/courses/" + this.course.id);
       }
     },
