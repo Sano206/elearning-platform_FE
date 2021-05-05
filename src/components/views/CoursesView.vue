@@ -34,7 +34,7 @@ export default {
 
   data() {
     return {
-      courses: null,
+      courses: [],
       selectedTopic: null,
       searchString: null,
       filteredCourses: null,
@@ -86,10 +86,15 @@ export default {
           .catch((error) => console.log(error));
     },
   },
+  created() {
+      this.getCourses()
+  },
 
-  mounted() {
-    this.getCourses();
-  }
+  // mounted() {
+  //   if (this.$auth.isAuthenticated) {
+  //     this.getCourses()
+  //   }
+  // }
 };
 </script>
 

@@ -4,14 +4,14 @@
       <h1 class="header p-2">{{ course.title }}</h1>
       <button
         class="btn px-4 mt-auto ml-auto"
-        v-if="isEnrolled || justEnrolled"
+        v-if="isEnrolled || justEnrolled && this.$auth.isAuthenticated"
         @click="openCourse"
       >
         Enter the Course
       </button>
       <button
         class="btn px-4 mt-auto ml-auto"
-        v-if="!isEnrolled && !justEnrolled"
+        v-if="!isEnrolled && !justEnrolled &&this.$auth.isAuthenticated"
         @click="enroll"
       >
         Enroll
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     openCourse() {
-      this.$router.push("/courses/app/" + this.course.id);
+      this.$router.push("/app/" + this.course.id);
     },
   },
 };

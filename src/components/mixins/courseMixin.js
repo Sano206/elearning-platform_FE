@@ -34,7 +34,9 @@ export const enrollmentsMixin = {
   },
 
   mounted() {
-    this.getEnrolledCourses();
+    if(this.$auth.isAuthenticated){
+      this.getEnrolledCourses();
+    }
   },
 };
 
@@ -103,19 +105,11 @@ export const topicsMixin = {
       topics:{
         type:Array,
         default:[],
-      }
+      },
+      course:null,
     }
   },
   methods: {
-    getEnrolledCourses() {
-      axios({
-        url: "/enrollments",
-        method: "get",
-      })
-          .then((response) => (this.enrollments = response.data))
-          .catch((error) => console.log(error));
-    },
-
     getTopics(){
       axios({
         url: "/courses/topics",
@@ -125,7 +119,8 @@ export const topicsMixin = {
             this.topics = response.data
           })
           .catch((error) => console.log(error));
-    }
+    },
+
   },
 
   created() {

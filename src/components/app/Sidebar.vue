@@ -47,9 +47,8 @@ export default {
     },
 
     findLastSeen() {
-      let id = Math.max(...this.progress);
-      for (let i = 0; i < this.chapters.length; i++) {
-        if (this.chapters[i].id === id) {
+      for (let i = this.chapters.length-1; i >= 0; i--) {
+        if (this.progress.includes(this.chapters[i].id)) {
           return i;
         }
       }
@@ -59,6 +58,7 @@ export default {
 
   created() {
     let index = this.findLastSeen();
+    console.log(index)
     if (this.progress.length !== 0 && index !== this.chapters.length - 1) {
       index++;
     }

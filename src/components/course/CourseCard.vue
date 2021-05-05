@@ -42,15 +42,16 @@ export default {
 
   methods: {
     showDetail() {
-      if (this.course.instructor.userID === this.$auth.user.sub) {
+      if(!this.$auth.isAuthenticated || !(this.course.instructor.userID === this.$auth.user.sub)){
+        this.$router.push("/detail/" + this.course.id);
+      }
+      else if (this.course.instructor.userID === this.$auth.user.sub) {
         this.$router.push("/instructor/courses/" + this.course.id);
-      } else {
-        this.$router.push("/courses/" + this.course.id);
       }
     },
 
     openCourse() {
-      this.$router.push("/courses/app/" + this.course.id);
+      this.$router.push("/app/" + this.course.id);
     },
   },
 };

@@ -3,7 +3,7 @@
       class="font-weight-bold navbar sticky-top navbar-expand-lg navbar-light py-3"
       style="background-color: #118ab2"
   >
-    <router-link class="navbar-brand" to="/courses">Home</router-link>
+    <router-link class="navbar-brand" to="/">Home</router-link>
     <button
         class="navbar-toggler"
         type="button"
@@ -21,7 +21,6 @@
         <li class="nav-item app-nav-link dropdown">
           <div
               class="nav-link dropdown-toggle router-link-exact-active router-link-active"
-              v-if="$auth.isAuthenticated"
               id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false"
           >
@@ -30,13 +29,13 @@
 
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <div v-for="(topic, index) in topics" v-bind:key="index">
-              <router-link class="dropdown-item" :to="/courses/ + topic">{{ topic }}</router-link>
+              <router-link class="dropdown-item" :to="/topic/+topic">{{ topic }}</router-link>
             </div>
           </div>
         </li>
 
 
-        <app-nav-item route="myCourses" name="My Courses"></app-nav-item>
+        <app-nav-item route="user/courses" name="My Courses"></app-nav-item>
 
         <app-nav-item
             v-if="isInstructor"
@@ -116,7 +115,7 @@ export default {
       });
     },
     searchCourses(){
-      this.$router.push('/courses/title/'+ this.substring)
+      this.$router.push('/title/'+ this.substring)
     }
   },
 

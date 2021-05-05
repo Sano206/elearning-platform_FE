@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import UsersView from "@/components/views/UsersView";
 import CoursesView from "@/components/views/CoursesView";
 import MyCoursesView from "@/components/views/MyCoursesView";
 import CourseCardDetail from "@/components/course/CourseCardDetail";
@@ -14,17 +13,20 @@ import store from "@/store";
 Vue.use(VueRouter);
 
 const routes = [
-  { path: "/users", component: UsersView },
-  { path: "/courses/:topic?", component: CoursesView },
-  { path: "/courses/title/:substring?", component: CoursesView },
-  { path: "/myCourses", component: MyCoursesView },
-  { path: "/courses/:courseId", component: CourseCardDetail },
+  { path: "/", component: CoursesView },
+  { path: "/topic/:topic?", component: CoursesView },
+  { path: "/title/:substring?", component: CoursesView },
+  {
+    path: "/user/courses",
+    component: MyCoursesView,
+    beforeEnter: authGuard, },
+  { path: "/detail/:courseId", component: CourseCardDetail },
   {
     path: "/instructor/courses",
     component: InstructorCoursesView,
     beforeEnter: (to, from, next) => {
       if (!store.getters.isInstructor) {
-        next("/courses");
+        next("/");
       } else {
         next();
       }
@@ -35,13 +37,17 @@ const routes = [
     component: CourseCardDetailEditable,
     beforeEnter: (to, from, next) => {
       if (!store.getters.isInstructor) {
-        next("/courses");
+        next("/");
       } else {
         next();
       }
     },
   },
-  { path: "/courses/app/:courseId", component: CourseAppView },
+  {
+    path: "/app/:courseId",
+    component: CourseAppView,
+    beforeEnter: authGuard,
+  },
   {
     path: "/profile",
     name: "profile",

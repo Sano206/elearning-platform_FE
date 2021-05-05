@@ -4,14 +4,22 @@
         role="navigation"
         :topics="topics"
     />
+    <loading class="container" v-if="$auth.isAuthenticated && token ===null"></loading>
 
     <router-view
-      v-if="token !== null"
+        v-else
       class="container"
       style="margin-top: 20px"
       :key="$route.fullPath"
     ></router-view>
-    <loading class="container" v-else></loading>
+
+<!--    <div-->
+<!--        v-if="!$auth.isAuthenticated"-->
+<!--        class="container"-->
+<!--        style="margin-top: 20px"-->
+<!--    >-->
+<!--      <courses-view/>-->
+<!--    </div>-->
 
     <app-footer></app-footer>
   </div>
@@ -23,10 +31,12 @@ import AppFooter from "@/components/AppFooter";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
 import Loading from "@/components/Loading";
 import {topicsMixin} from "@/components/mixins/courseMixin";
+// import CoursesView from "@/components/views/CoursesView";
 
 export default {
   name: "App",
   components: {
+    // CoursesView,
     Loading,
     AppNav,
     AppFooter,

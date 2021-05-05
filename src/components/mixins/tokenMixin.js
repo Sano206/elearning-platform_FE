@@ -12,8 +12,10 @@ export const tokenMixin = {
   },
 
   mounted() {
-    window.axios.defaults.headers.common = {
-      Authorization: `Bearer ${this.token}`,
-    };
+    if(this.$auth.isAuthenticated){
+      window.axios.defaults.headers.common = {
+        Authorization: `Bearer ${this.token}`,
+      }
+    }
   },
 };

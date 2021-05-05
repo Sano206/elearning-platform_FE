@@ -17,7 +17,6 @@
       </div>
     </div>
     <div>
-      <app-menu class="row mb-3" />
       <h2 class="row mb-2">{{ selectedChapter.chapterTitle }}</h2>
       <div class="description row col-lg-9" v-html="selectedChapter.description"></div>
     </div>
@@ -26,14 +25,13 @@
 
 <script>
 import Sidebar from "@/components/app/Sidebar";
-import AppMenu from "@/components/app/AppMenu";
 import ContentVideo from "@/components/app/ContentVideo";
 import axios from "axios";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
 
 export default {
   name: "CourseAppView",
-  components: { ContentVideo, AppMenu, Sidebar },
+  components: { ContentVideo, Sidebar },
   mixins: [tokenMixin],
 
   data() {
