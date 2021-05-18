@@ -53,7 +53,7 @@
             <input
               class="form-control mr-sm-2"
               type="search"
-              placeholder="In progress.."
+              placeholder="Search courses.."
               aria-label="Search"
               v-model="substring"
             />
@@ -68,20 +68,20 @@
           </form>
         </li>
       </ul>
-      <div v-if="!$auth.loading">
+      <div class="nav-item" v-if="!$auth.loading">
         <button
-          type="button"
-          class="btn btn-primary"
-          v-if="!$auth.isAuthenticated"
-          @click="login"
+            type="button"
+            class="btn btn-primary"
+            v-if="!$auth.isAuthenticated"
+            @click="login"
         >
           Log in
         </button>
         <button
-          type="button"
-          class="btn btn-secondary"
-          v-if="$auth.isAuthenticated"
-          @click="logout"
+            type="button"
+            class="btn btn-secondary"
+            v-if="$auth.isAuthenticated"
+            @click="logout"
         >
           Log out
         </button>
