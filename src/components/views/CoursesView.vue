@@ -11,9 +11,10 @@
         </div>
       </div>
     </div>
+    <loading v-if="isLoading"/>
     <div
       class="row mt-lg-5 justify-content-md-center align-items-center"
-      v-if="courses.length === 0"
+      v-else-if="courses.length === 0"
     >
       <span class="col col-lg-4 font-weight-bold"
         >Sorry, no matching courses..</span
@@ -27,10 +28,12 @@ import axios from "axios";
 import CourseCard from "@/components/course/CourseCard";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
 import { enrollmentsMixin } from "@/components/mixins/courseMixin";
+import Loading from "@/components/Loading";
 
 export default {
   name: "CoursesView",
   components: {
+    Loading,
     CourseCard,
   },
   mixins: [tokenMixin, enrollmentsMixin],
@@ -41,6 +44,7 @@ export default {
       selectedTopic: null,
       searchString: null,
       filteredCourses: null,
+      isLoading: true,
     };
   },
 
@@ -85,6 +89,7 @@ export default {
             this.searchString = this.$route.params.substring;
             this.courses = this.searchCourses();
           }
+          this.isLoading = false;
         })
         .catch((error) => console.log(error));
     },
