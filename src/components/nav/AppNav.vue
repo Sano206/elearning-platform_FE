@@ -68,12 +68,13 @@
           </form>
         </li>
       </ul>
-      <div class="nav-item" v-if="!$auth.loading">
+      <div class="nav-item">
         <button
             type="button"
             class="btn btn-primary"
             v-if="!$auth.isAuthenticated"
             @click="login"
+
         >
           Log in
         </button>
@@ -136,9 +137,5 @@ input {
 
 * {
   font-size: large;
-}
-
-.hover-toggle:hover {
-  display: block;
 }
 </style>
