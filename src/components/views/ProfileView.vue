@@ -63,7 +63,7 @@
           </button>
         </div>
 
-        <div v-if="makeInstructor">
+        <div v-if="makeInstructor && this.isUser">
           <div class="form-group">
             <label for="newIntroduction" class="form-label"
               >Introduction:</label

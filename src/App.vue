@@ -1,6 +1,13 @@
 <template>
   <div id="app">
     <app-nav role="navigation" :topics="topics" />
+
+    <div
+        class="alert alert-primary text-center" role="alert"
+        v-if="$auth.isAuthenticated && this.isUser === false">
+      To access the courses, please fill out your user information.
+    </div>
+
     <loading
       class="container"
       v-if="$auth.isAuthenticated && token === null"
