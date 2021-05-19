@@ -108,22 +108,29 @@ export default {
     },
 
     updateChapter() {
-      axios
-        .put("/chapters/" + this.localChapter.id, {
-          chapterTitle: this.localChapter.chapterTitle,
-          description: this.localChapter.description,
-          content: this.localChapter.content,
-          position: this.reducedPosition,
-        })
-        .then((response) => {
-          if (response.data === "") {
-            alert("Cannot do!");
-          } else {
-            this.chapterEdited = false;
-            this.$emit("chapterUpdated", response);
-          }
-        })
-        .catch((error) => console.log(error));
+      if (
+        this.reducedPosition < 0 ||
+        this.reducedPosition > this.courseChaptersAmount
+      ) {
+        alert("Invalid position number");
+      } else {
+        axios
+          .put("/chapters/" + this.localChapter.id, {
+            chapterTitle: this.localChapter.chapterTitle,
+            description: this.localChapter.description,
+            content: this.localChapter.content,
+            position: this.reducedPosition,
+          })
+          .then((response) => {
+            if (response.data === "") {
+              alert("Cannot do!");
+            } else {
+              this.chapterEdited = false;
+              this.$emit("chapterUpdated", response);
+            }
+          })
+          .catch((error) => console.log(error));
+      }
     },
   },
 };

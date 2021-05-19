@@ -68,21 +68,20 @@
           </form>
         </li>
       </ul>
-      <div class="nav-item">
+      <div class="nav-item" v-if="!$auth.loading">
         <button
-            type="button"
-            class="btn btn-primary"
-            v-if="!$auth.isAuthenticated"
-            @click="login"
-
+          type="button"
+          class="btn btn-primary"
+          v-if="!$auth.isAuthenticated"
+          @click="login"
         >
           Log in
         </button>
         <button
-            type="button"
-            class="btn btn-secondary"
-            v-if="$auth.isAuthenticated"
-            @click="logout"
+          type="button"
+          class="btn btn-secondary"
+          v-if="$auth.isAuthenticated"
+          @click="logout"
         >
           Log out
         </button>

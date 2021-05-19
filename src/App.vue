@@ -61,9 +61,10 @@ export default {
     for (let role of this.$auth.user["https:/e-learning-app.com/roles"]) {
       if (role === "instructor") {
         await this.$store.dispatch("makeInstructorTrue");
-      }
-      if (role === "admin") {
+      } else if (role === "admin") {
         await this.$store.dispatch("makeAdminTrue");
+      } else if (role === "user") {
+        await this.$store.dispatch("makeUserTrue");
       }
     }
   },

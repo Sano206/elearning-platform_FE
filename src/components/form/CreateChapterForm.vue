@@ -30,7 +30,7 @@
       <label for="position" class="form-label">Position:</label>
       <input
         type="number"
-        :max="courseChaptersAmount"
+        :max="courseChaptersAmount + 1"
         min="1"
         class="form-control"
         id="position"
@@ -60,24 +60,37 @@ export default {
     };
   },
 
+  computed: {
+    reducedPosition() {
+      return this.position - 1;
+    },
+  },
+
   methods: {
     addChapter() {
-      axios
-        .post("/courses/" + this.courseId + "/chapters", {
-          chapterTitle: this.chapterTitle,
-          description: this.description,
-          content: this.content,
-          position: this.position - 1,
-        })
-        .then((response) => {
-          this.$emit("chapterCreated", response.data);
-        })
-        .catch((error) => console.log(error));
+      if (
+        this.reducedPosition < 0 ||
+        this.reducedPosition > this.courseChaptersAmount
+      ) {
+        alert("Invalid position number");
+      } else {
+        axios
+          .post("/courses/" + this.courseId + "/chapters", {
+            chapterTitle: this.chapterTitle,
+            description: this.description,
+            content: this.content,
+            position: this.reducedPosition,
+          })
+          .then((response) => {
+            this.$emit("chapterCreated", response.data);
+          })
+          .catch((error) => console.log(error));
+      }
     },
   },
 
   created() {
-    this.position = this.courseChaptersAmount;
+    this.position = this.courseChaptersAmount + 1;
   },
 };
 </script>

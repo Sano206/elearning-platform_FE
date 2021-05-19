@@ -1,31 +1,40 @@
 <template>
   <div v-if="course">
     <div v-if="courseEdited && !newChapter">
-      <div class="dropdown">
-        <button
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="dropdownMenu2"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <span class="navbar-toggler-icon">Edit</span>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button class="dropdown-item" @click="selectCourse" type="button">
-            Course
+      <div class="row">
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenu2"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <span class="navbar-toggler-icon">Edit</span>
           </button>
-          <div v-for="chapter in orderedChapters" :key="chapter.id">
-            <button
-              class="dropdown-item"
-              @click="selectChapter(chapter)"
-              type="button"
-            >
-              {{ chapter.chapterTitle }}
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button class="dropdown-item" @click="selectCourse" type="button">
+              Course
             </button>
+            <div v-for="chapter in orderedChapters" :key="chapter.id">
+              <button
+                class="dropdown-item"
+                @click="selectChapter(chapter)"
+                type="button"
+              >
+                {{ chapter.chapterTitle }}
+              </button>
+            </div>
           </div>
         </div>
+        <button
+          class="btn m-1 btn-scheme ml-auto align-self-end"
+          v-if="isInstructor"
+          @click="createChapter"
+        >
+          Create new Chapter
+        </button>
       </div>
       <div v-if="selectedCourse">
         <div class="form-group">
@@ -129,13 +138,6 @@
           </button>
           <button class="btn m-1 btn-danger" @click="courseEdited = false">
             Cancel
-          </button>
-          <button
-            class="btn m-1 btn-scheme"
-            v-if="isInstructor"
-            @click="createChapter"
-          >
-            Create new Chapter
           </button>
         </div>
       </div>

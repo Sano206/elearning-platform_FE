@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <loading v-if="isLoading"/>
+    <loading v-if="isLoading" />
     <div
       class="row mt-lg-5 justify-content-md-center align-items-center"
       v-else-if="courses.length === 0"

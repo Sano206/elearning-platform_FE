@@ -129,7 +129,15 @@ export default {
           name: this.authUser.given_name,
           surname: this.authUser.family_name,
         },
-      }).catch((error) => console.log(error));
+      })
+        .then((response) => {
+          if (response) {
+            location.reload();
+          } else {
+            alert("An error occurred, try again.");
+          }
+        })
+        .catch((error) => console.log(error));
     },
 
     updateInstructor() {

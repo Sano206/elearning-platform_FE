@@ -9,6 +9,9 @@ export const tokenMixin = {
     isAdmin() {
       return this.$store.getters.isAdmin;
     },
+    isUser() {
+      return this.$store.getters.isUser;
+    },
   },
 
   mounted() {

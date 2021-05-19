@@ -1,5 +1,9 @@
 <template>
   <div v-if="course">
+    <div class="breadcrumb">
+      /
+      <router-link :to="/topic/ + course.topic">{{ course.topic }}</router-link>
+    </div>
     <div class="d-flex flex-row no-gutters">
       <h1 class="header p-2">{{ course.title }}</h1>
       <button
