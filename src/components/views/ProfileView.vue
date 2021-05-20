@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="isLoaded">
+    <div v-if="isLoaded && isUser">
       <img :src="$auth.user.picture" />
 
       <form>
@@ -24,7 +24,7 @@
         </div>
         <div class="col-auto" v-if="!isInstructor">
           <button @click="updateUser" class="btn btn-primary mb-3">
-            Save user info
+            Save user information
           </button>
         </div>
 
@@ -54,7 +54,7 @@
           </div>
         </div>
 
-        <div class="col-auto" v-if="!isInstructor && !makeInstructor">
+        <div class="col-auto" v-if="!isInstructor && !makeInstructor && isUser">
           <button
             @click="makeInstructor = !makeInstructor"
             class="btn btn-primary mb-3"
@@ -63,7 +63,7 @@
           </button>
         </div>
 
-        <div v-if="makeInstructor && this.isUser">
+        <div v-if="makeInstructor && isUser">
           <div class="form-group">
             <label for="newIntroduction" class="form-label"
               >Introduction:</label
@@ -94,15 +94,18 @@
         </div>
       </form>
     </div>
+    <loading v-else />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
+import Loading from "@/components/Loading";
 
 export default {
   name: "ProfileView",
+  components: { Loading },
   data() {
     return {
       authUser: null,
@@ -115,13 +118,27 @@ export default {
   },
   mixins: [tokenMixin],
 
-  mounted() {
+  async mounted() {
     this.authUser = this.$auth.user;
-    this.fetchInstructorInfo();
+    await this.fetchInstructorInfo();
+    if (!this.isUser) {
+      await axios({
+        method: "put",
+        url: "/users",
+        data: {
+          name: "Name",
+          surname: "Surname",
+        },
+      }).then(() => {});
+      await new Promise((r) => setTimeout(r, 300));
+      if (!this.isUser) {
+        location.reload(true);
+      }
+    }
   },
 
   methods: {
-    updateUser() {
+    async updateUser() {
       axios({
         method: "put",
         url: "/users",
@@ -131,13 +148,17 @@ export default {
         },
       })
         .then((response) => {
-          if (response) {
-            location.reload();
+          if (response.data === true) {
+            console.log({ response: response });
+            location.reload(true);
           } else {
             alert("An error occurred, try again.");
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          alert("An error occurred, try again.");
+        });
     },
 
     updateInstructor() {

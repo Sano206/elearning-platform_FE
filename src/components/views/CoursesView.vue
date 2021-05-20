@@ -97,12 +97,6 @@ export default {
   created() {
     this.getCourses();
   },
-
-  // mounted() {
-  //   if (this.$auth.isAuthenticated) {
-  //     this.getCourses()
-  //   }
-  // }
 };
 </script>
 

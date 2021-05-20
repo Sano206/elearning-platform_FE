@@ -3,8 +3,10 @@
     <app-nav role="navigation" :topics="topics" />
 
     <div
-        class="alert alert-primary text-center" role="alert"
-        v-if="$auth.isAuthenticated && this.isUser === false">
+      class="alert alert-primary text-center"
+      role="alert"
+      v-if="$auth.isAuthenticated && this.isUser === false"
+    >
       To access the courses, please fill out your user information.
     </div>
 
@@ -38,7 +40,6 @@ import AppFooter from "@/components/AppFooter";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
 import Loading from "@/components/Loading";
 import { topicsMixin } from "@/components/mixins/courseMixin";
-// import CoursesView from "@/components/views/CoursesView";
 
 export default {
   name: "App",
