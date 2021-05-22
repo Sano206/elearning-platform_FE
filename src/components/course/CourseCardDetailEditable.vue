@@ -30,7 +30,7 @@
         </div>
         <button
           class="btn m-1 btn-scheme ml-auto align-self-end"
-          v-if="isInstructor"
+          v-if="isInstructor || isAdmin"
           @click="createChapter"
         >
           Create new Chapter
@@ -160,7 +160,7 @@
       <course-card-detail />
       <button
         class="btn btn-scheme"
-        v-if="isInstructor"
+        v-if="isInstructor || isAdmin"
         @click="courseEdited = true"
       >
         Edit
@@ -243,9 +243,12 @@ export default {
     },
 
     checkInstructor() {
-      if (this.course.instructor.userID !== this.$auth.user.sub) {
+      if (
+        this.course.instructor.userID !== this.$auth.user.sub &&
+        !this.isAdmin
+      ) {
         console.log(this.course.instructor);
-        this.$router.push("/courses/" + this.course.id);
+        this.$router.push("/detail/" + this.course.id);
       }
     },
 
@@ -270,12 +273,8 @@ export default {
           topic: this.course.topic,
         })
         .then((response) => {
-          if (response.data === "") {
-            alert("Cannot do!");
-          } else {
-            this.courseEdited = false;
-            this.$emit("courseUpdated", response);
-          }
+          this.courseEdited = false;
+          this.$emit("courseUpdated", response);
         })
         .catch((error) => console.log(error));
     },

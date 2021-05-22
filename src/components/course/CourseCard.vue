@@ -42,12 +42,14 @@ export default {
 
   methods: {
     showDetail() {
-      if (
-        !this.$auth.isAuthenticated ||
-        !(this.course.instructor.userID === this.$auth.user.sub)
+      if (!this.$auth.isAuthenticated) {
+        this.$router.push("/detail/" + this.course.id);
+      } else if (
+        !this.course.instructor.userID === this.$auth.user.sub &&
+        !this.isAdmin
       ) {
         this.$router.push("/detail/" + this.course.id);
-      } else if (this.course.instructor.userID === this.$auth.user.sub) {
+      } else {
         this.$router.push("/instructor/courses/" + this.course.id);
       }
     },
