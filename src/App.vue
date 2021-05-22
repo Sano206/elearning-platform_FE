@@ -21,15 +21,6 @@
       style="margin-top: 20px"
       :key="$route.fullPath"
     ></router-view>
-
-    <!--    <div-->
-    <!--        v-if="!$auth.isAuthenticated"-->
-    <!--        class="container"-->
-    <!--        style="margin-top: 20px"-->
-    <!--    >-->
-    <!--      <courses-view/>-->
-    <!--    </div>-->
-
     <app-footer></app-footer>
   </div>
 </template>
