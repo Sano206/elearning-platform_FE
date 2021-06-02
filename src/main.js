@@ -23,8 +23,8 @@ Vue.use(IconsPlugin);
 
 Vue.config.productionTip = false;
 window.axios = require("axios");
-axios.defaults.baseURL = "//localhost:8080";
-//axios.defaults.baseURL = "https://elearningplatform.herokuapp.com";
+//axios.defaults.baseURL = "//localhost:8080";
+axios.defaults.baseURL = "https://elearningplatform.herokuapp.com";
 
 Vue.use(Auth0Plugin, {
   domain,
