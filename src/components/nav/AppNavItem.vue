@@ -3,7 +3,7 @@
     <router-link
       class="nav-link router-link-exact-active router-link-active"
       v-if="$auth.isAuthenticated"
-      :to="fullRoute"
+      :to="{ name: this.route }"
     >
       {{ name }}
     </router-link>
@@ -16,11 +16,6 @@ export default {
   props: {
     name: null,
     route: null,
-  },
-  computed: {
-    fullRoute() {
-      return "/" + this.route;
-    },
   },
 };
 </script>

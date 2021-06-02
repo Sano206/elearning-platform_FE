@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div v-if="!chapterEdited">
+    <div v-if="!chapterBeingEdited">
       <div class="d-flex flex-row no-gutters">
-        <h3 class="header p-2">{{ localChapter.chapterTitle }}</h3>
+        <h3 class="header p-2">{{ localChapter.title }}</h3>
         <button
           class="btn px-4 mt-auto ml-auto btn-scheme"
           v-if="isInstructor"
-          @click="chapterEdited = true"
+          @click="chapterBeingEdited = true"
         >
           Edit
         </button>
@@ -22,7 +22,7 @@
           type="text"
           class="form-control"
           id="title"
-          v-model="localChapter.chapterTitle"
+          v-model="localChapter.title"
         />
       </div>
 
@@ -60,7 +60,7 @@
       </div>
 
       <button class="btn m-1 btn-dark" @click="updateChapter">Update</button>
-      <button class="btn m-1 btn-danger" @click="chapterEdited = false">
+      <button class="btn m-1 btn-danger" @click="chapterBeingEdited = false">
         Cancel
       </button>
     </div>
@@ -84,7 +84,7 @@ export default {
 
   data() {
     return {
-      chapterEdited: false,
+      chapterBeingEdited: false,
       localChapter: null,
       position: null,
     };
@@ -104,7 +104,6 @@ export default {
     init() {
       this.localChapter = JSON.parse(JSON.stringify(this.chapter));
       this.position = this.chapter.position + 1;
-      console.log("problem");
     },
 
     updateChapter() {
@@ -112,25 +111,20 @@ export default {
         this.reducedPosition < 0 ||
         this.reducedPosition > this.courseChaptersAmount
       ) {
-        alert("Invalid position number");
-      } else {
-        axios
-          .put("/chapters/" + this.localChapter.id, {
-            chapterTitle: this.localChapter.chapterTitle,
-            description: this.localChapter.description,
-            content: this.localChapter.content,
-            position: this.reducedPosition,
-          })
-          .then((response) => {
-            if (response.data === "") {
-              alert("Cannot do!");
-            } else {
-              this.chapterEdited = false;
-              this.$emit("chapterUpdated", response);
-            }
-          })
-          .catch((error) => console.log(error));
+        return alert("Invalid position number");
       }
+      axios
+        .put(`/chapters/${this.localChapter.id}`, {
+          title: this.localChapter.title,
+          description: this.localChapter.description,
+          content: this.localChapter.content,
+          position: this.reducedPosition,
+        })
+        .then((response) => {
+          this.chapterBeingEdited = false;
+          this.$emit("chapterUpdated", response);
+        })
+        .catch((error) => alert(error.response.data.message));
     },
   },
 };

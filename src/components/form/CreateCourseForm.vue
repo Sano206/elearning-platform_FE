@@ -139,7 +139,7 @@ export default {
         .then((response) => {
           this.$emit("courseCreated", response.data);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => alert(error.response.data.message));
     },
   },
 };

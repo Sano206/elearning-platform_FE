@@ -1,6 +1,6 @@
 <template>
   <div v-if="course">
-    <div v-if="courseEdited && !newChapter">
+    <div v-if="courseBeingEdited && !newChapter">
       <div class="row">
         <div class="dropdown">
           <button
@@ -14,7 +14,11 @@
             <span class="navbar-toggler-icon">Edit</span>
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <button class="dropdown-item" @click="selectCourse" type="button">
+            <button
+              class="dropdown-item font-weight-bold border-bottom"
+              @click="selectCourse"
+              type="button"
+            >
               Course
             </button>
             <div v-for="chapter in orderedChapters" :key="chapter.id">
@@ -23,7 +27,7 @@
                 @click="selectChapter(chapter)"
                 type="button"
               >
-                {{ chapter.chapterTitle }}
+                {{ chapter.title }}
               </button>
             </div>
           </div>
@@ -136,7 +140,7 @@
           <button class="btn m-1 btn-dark" @click="updateCourse()">
             Update
           </button>
-          <button class="btn m-1 btn-danger" @click="courseEdited = false">
+          <button class="btn m-1 btn-danger" @click="courseBeingEdited = false">
             Cancel
           </button>
         </div>
@@ -161,23 +165,10 @@
       <button
         class="btn btn-scheme"
         v-if="isInstructor || isAdmin"
-        @click="courseEdited = true"
+        @click="courseBeingEdited = true"
       >
         Edit
       </button>
-    </div>
-
-    <div v-if="newChapter === true" class="row">
-      <div class="container">
-        <create-chapter-form
-          :courseId="course.id"
-          :courseChaptersAmount="course.courseChapters.length"
-          @chapterCreated="chapterCreated"
-        ></create-chapter-form>
-        <button class="btn m-1 btn-danger" @click="newChapter = false">
-          Cancel
-        </button>
-      </div>
     </div>
   </div>
 </template>
@@ -185,7 +176,6 @@
 <script>
 import axios from "axios";
 import CourseChapter from "@/components/course/CourseChapter";
-import CreateChapterForm from "@/components/form/CreateChapterForm";
 import {
   languages,
   singleCourseMixin,
@@ -200,15 +190,13 @@ export default {
   components: {
     CourseCardDetail,
     CourseChapter,
-    CreateChapterForm,
   },
   mixins: [singleCourseMixin, tokenMixin, languages, topicsMixin],
 
   data() {
     return {
       course: null,
-      courseEdited: false,
-      newChapter: false,
+      courseBeingEdited: false,
       selectedChapter: {
         type: CourseChapter,
         default: null,
@@ -229,7 +217,7 @@ export default {
   watch: {
     $route() {
       this.fetchDetail();
-      this.courseEdited = false;
+      this.courseBeingEdited = false;
     },
   },
   methods: {
@@ -247,14 +235,21 @@ export default {
         this.course.instructor.userID !== this.$auth.user.sub &&
         !this.isAdmin
       ) {
-        console.log(this.course.instructor);
-        this.$router.push("/detail/" + this.course.id);
+        this.$router.push({
+          name: "courseDetail",
+          params: { courseId: this.course.id },
+        });
       }
     },
 
     createChapter() {
-      this.newChapter = true;
-      window.scrollTo(0, 0);
+      this.$router.push({
+        name: "newChapter",
+        params: {
+          courseId: this.course.id,
+          numberOfChapters: this.course.courseChapters.length,
+        },
+      });
     },
 
     chapterUpdated() {
@@ -263,7 +258,7 @@ export default {
 
     updateCourse() {
       axios
-        .put("/courses/" + this.course.id, {
+        .put(`/courses/${this.course.id}`, {
           title: this.course.title,
           description: this.course.description,
           shortDescription: this.course.shortDescription,
@@ -273,16 +268,10 @@ export default {
           topic: this.course.topic,
         })
         .then((response) => {
-          this.courseEdited = false;
+          this.courseBeingEdited = false;
           this.$emit("courseUpdated", response);
         })
-        .catch((error) => console.log(error));
-    },
-
-    chapterCreated() {
-      this.fetchDetail();
-      //this.courses.push(event);
-      this.newChapter = false;
+        .catch((error) => alert(error.response.data.message));
     },
   },
 

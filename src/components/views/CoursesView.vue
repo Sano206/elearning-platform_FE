@@ -51,28 +51,16 @@ export default {
   methods: {
     filterCourses() {
       if (this.selectedTopic !== null) {
-        let filtered = [];
-        this.courses.forEach((course) => {
-          if (course.topic === this.selectedTopic) {
-            filtered.push(course);
-          }
-        });
-        return filtered;
+        return this.courses.filter((c) => c.topic === this.selectedTopic);
       } else {
         return this.courses;
       }
     },
 
     searchCourses() {
-      let filtered = [];
-      this.courses.forEach((course) => {
-        if (
-          course.title.toLowerCase().includes(this.searchString.toLowerCase())
-        ) {
-          filtered.push(course);
-        }
-      });
-      return filtered;
+      return this.courses.filter((c) =>
+        c.title.toLowerCase().includes(this.searchString.toLowerCase())
+      );
     },
 
     getCourses() {
@@ -94,6 +82,7 @@ export default {
         .catch((error) => console.log(error));
     },
   },
+
   created() {
     this.getCourses();
   },

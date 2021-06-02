@@ -14,9 +14,6 @@
     </div>
     <div class="card-body flex-column h-100">
       <p class="card-text my-auto">{{ course.shortDescription }}</p>
-      <button class="btn m-1" v-if="myCourses" @click="openCourse">
-        Enter the Course
-      </button>
     </div>
   </div>
 </template>
@@ -43,19 +40,24 @@ export default {
   methods: {
     showDetail() {
       if (!this.$auth.isAuthenticated) {
-        this.$router.push("/detail/" + this.course.id);
+        this.$router.push({
+          name: "courseDetail",
+          params: { courseId: this.course.id },
+        });
       } else if (
         this.course.instructor.userID === this.$auth.user.sub ||
         this.isAdmin
       ) {
-        this.$router.push("/instructor/courses/" + this.course.id);
+        this.$router.push({
+          name: "instructorCourseDetail",
+          params: { courseId: this.course.id },
+        });
       } else {
-        this.$router.push("/detail/" + this.course.id);
+        this.$router.push({
+          name: "courseDetail",
+          params: { courseId: this.course.id },
+        });
       }
-    },
-
-    openCourse() {
-      this.$router.push("/app/" + this.course.id);
     },
   },
 };
@@ -109,33 +111,4 @@ p {
   display: block;
   overflow: hidden;
 }
-
-/*
-.course-card-wrapper{
-  border: solid black;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-
-  padding: 16px;
-  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
-}
-
-.course-author{
-  margin: 8px;
-  padding-bottom: 16px;
-
-  color: #FFA69E;
-  border-bottom: 1px solid #FFA69E;
-}
-
-.course-description {
-  display: flex;
-  justify-content: center;
-  flex-grow: 1;
-}
-
-.course-title {
-  font-size: large;
-}*/
 </style>

@@ -43,7 +43,7 @@ const store = new Vuex.Store({
   },
 
   actions: {
-    retrieveTokenFromAuthz(context) {
+    retrieveTokenFromAuth0(context) {
       return new Promise((resolve, reject) => {
         const instance = getInstance();
         instance.$watch("loading", (loading) => {

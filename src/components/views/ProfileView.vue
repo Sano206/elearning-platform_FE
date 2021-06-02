@@ -145,17 +145,12 @@ export default {
           surname: this.authUser.family_name,
         },
       })
-        .then((response) => {
-          if (response.data === true) {
-            console.log({ response: response });
-            location.reload(true);
-          } else {
-            alert("An error occurred, try again.");
-          }
+        .then(() => {
+          location.reload(true);
         })
         .catch((error) => {
           console.log(error);
-          alert("An error occurred, try again.");
+          alert(error.response.data.message);
         });
       this.updating = false;
     },
@@ -173,7 +168,7 @@ export default {
         },
       })
         .then(() => location.reload())
-        .catch((error) => console.log(error));
+        .catch((error) => alert(error.response.data.message));
       this.updating = false;
     },
     createInstructor() {
@@ -189,7 +184,7 @@ export default {
         },
       })
         .then(() => location.reload())
-        .catch((error) => console.log(error));
+        .catch((error) => alert(error.response.data.message));
       this.updating = false;
     },
 

@@ -2,12 +2,7 @@
   <div>
     <div class="form-group">
       <label for="title" class="form-label">Title:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="title"
-        v-model="chapterTitle"
-      />
+      <input type="text" class="form-control" id="title" v-model="title" />
     </div>
 
     <div class="form-group">
@@ -30,7 +25,7 @@
       <label for="position" class="form-label">Position:</label>
       <input
         type="number"
-        :max="courseChaptersAmount + 1"
+        :max="numberOfChapters"
         min="1"
         class="form-control"
         id="position"
@@ -39,6 +34,9 @@
     </div>
 
     <button class="btn btn-scheme" @click="addChapter">Submit</button>
+    <button class="btn m-1 btn-danger" @click="cancelChapterCreation">
+      Cancel
+    </button>
   </div>
 </template>
 
@@ -47,16 +45,14 @@ import axios from "axios";
 
 export default {
   name: "CreateChapterForm",
-  props: {
-    courseId: null,
-    courseChaptersAmount: Number,
-  },
   data() {
     return {
-      chapterTitle: null,
-      description: null,
-      content: null,
+      title: "",
+      description: "",
+      content: "",
       position: null,
+      courseId: null,
+      numberOfChapters: Number,
     };
   },
 
@@ -70,27 +66,39 @@ export default {
     addChapter() {
       if (
         this.reducedPosition < 0 ||
-        this.reducedPosition > this.courseChaptersAmount
+        this.reducedPosition > this.numberOfChapters
       ) {
         alert("Invalid position number");
       } else {
         axios
-          .post("/courses/" + this.courseId + "/chapters", {
-            chapterTitle: this.chapterTitle,
+          .post(`/courses/${this.courseId}/chapters`, {
+            title: this.title,
             description: this.description,
             content: this.content,
             position: this.reducedPosition,
           })
-          .then((response) => {
-            this.$emit("chapterCreated", response.data);
+          .then(() => {
+            this.$router.push({
+              name: "instructorCourseDetail",
+              params: { courseId: this.courseId },
+            });
           })
-          .catch((error) => console.log(error));
+          .catch((error) => alert(error.response.data.message));
       }
+    },
+
+    cancelChapterCreation() {
+      this.$router.push({
+        name: "instructorCourseDetail",
+        params: { courseId: this.courseId },
+      });
     },
   },
 
   created() {
-    this.position = this.courseChaptersAmount + 1;
+    this.position = this.$route.params["numberOfChapters"] + 1;
+    this.numberOfChapters = this.$route.params["numberOfChapters"] + 1;
+    this.courseId = this.$route.params["courseId"];
   },
 };
 </script>

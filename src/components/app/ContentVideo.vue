@@ -1,16 +1,5 @@
 <template>
   <div class="video-wrapper">
-    <!--    <iframe-->
-    <!--        id="iframe"-->
-    <!--        :src="videoSource"-->
-    <!--        width="100%"-->
-    <!--        height="100%"-->
-    <!--        frameborder="0"-->
-    <!--        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"-->
-    <!--        allowfullscreen-->
-    <!--    >-->
-    <!--    </iframe>-->
-
     <LazyYoutube
       ref="video"
       :src="videoSource"

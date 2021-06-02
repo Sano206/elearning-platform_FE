@@ -74,10 +74,6 @@ export default {
     },
   },
 
-  /*  updated() {
-    this.getMyCourses()
-  },*/
-
   created() {
     this.getMyCourses();
   },

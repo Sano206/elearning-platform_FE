@@ -20,7 +20,7 @@
 import SidebarItem from "@/components/app/SidebarItem";
 
 export default {
-  name: "Sidebar",
+  name: "CourseSidebar",
   components: { SidebarItem },
   props: {
     chapters: null,
@@ -58,7 +58,6 @@ export default {
 
   created() {
     let index = this.findLastSeen();
-    console.log(index);
     if (this.progress.length !== 0 && index !== this.chapters.length - 1) {
       index++;
     }

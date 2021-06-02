@@ -61,7 +61,10 @@ export default {
   },
   methods: {
     openCourse() {
-      this.$router.push("/app/" + this.course.id);
+      this.$router.push({
+        name: "courseApp",
+        params: { courseId: this.course.id },
+      });
     },
   },
 };

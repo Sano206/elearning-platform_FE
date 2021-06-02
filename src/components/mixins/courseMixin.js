@@ -49,12 +49,7 @@ export const enrollCheck = {
 
   computed: {
     isEnrolled() {
-      for (let enrollment of this.enrollments) {
-        if (enrollment.course.id === this.course.id) {
-          return true;
-        }
-      }
-      return false;
+      return this.enrollments.some((e) => e.course.id === this.course.id);
     },
   },
 
@@ -67,13 +62,16 @@ export const enrollCheck = {
           courseId: this.course.id,
         },
       })
-        .then((response) => {
-          if (response.data === "") {
-            alert("Already enrolled!");
+        .then(() => (this.justEnrolled = true))
+        .catch((error) => {
+          if (error.response.status === 403) {
+            alert(
+              "To access the courses, please fill out your user information."
+            );
+          } else {
+            alert(error.response.data.message);
           }
-          this.justEnrolled = true;
-        })
-        .catch((error) => console.log(error));
+        });
     },
   },
 };
@@ -112,7 +110,7 @@ export const topicsMixin = {
   methods: {
     getTopics() {
       axios({
-        url: "/courses/topics",
+        url: "/topics",
         method: "get",
       })
         .then((response) => {

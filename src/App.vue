@@ -47,7 +47,6 @@ export default {
     login() {
       this.$auth.loginWithRedirect();
     },
-    // Log the user out
     logout() {
       this.$auth.logout({
         returnTo: window.location.origin,
@@ -56,7 +55,7 @@ export default {
   },
 
   async created() {
-    await this.$store.dispatch("retrieveTokenFromAuthz");
+    await this.$store.dispatch("retrieveTokenFromAuth0");
     for (let role of this.$auth.user["https:/e-learning-app.com/roles"]) {
       if (role === "instructor") {
         await this.$store.dispatch("makeInstructorTrue");

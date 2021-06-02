@@ -1,7 +1,7 @@
 <template>
   <div class="flex-row d-flex border-bottom sidebar-item">
     <span class="p-2 pointer" @click="selectChapter">
-      {{ chapter.chapterTitle }}
+      {{ chapter.title }}
     </span>
     <button
       class="btn ml-auto mr-2 my-auto"

@@ -4,11 +4,11 @@
       <div class="col-12 col-md-8 col-lg-9">
         <content-video
           :videoSource="selectedChapter.content"
-          :title="selectedChapter.chapterTitle"
+          :title="selectedChapter.title"
         />
       </div>
       <div class="col-12 col-md-4 col-lg-3">
-        <sidebar
+        <course-sidebar
           :chapters="enrollment.course.courseChapters"
           :progress="enrollment.progress"
           @chapterSelected="chapterSelected"
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div>
-      <h2 class="row mb-2">{{ selectedChapter.chapterTitle }}</h2>
+      <h2 class="row mb-2">{{ selectedChapter.title }}</h2>
       <div
         class="description row col-lg-9"
         v-html="selectedChapter.description"
@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import Sidebar from "@/components/app/Sidebar";
+import CourseSidebar from "@/components/app/CourseSidebar";
 import ContentVideo from "@/components/app/ContentVideo";
 import axios from "axios";
 import { tokenMixin } from "@/components/mixins/tokenMixin";
 
 export default {
   name: "CourseAppView",
-  components: { ContentVideo, Sidebar },
+  components: { ContentVideo, CourseSidebar },
   mixins: [tokenMixin],
 
   data() {
@@ -55,7 +55,7 @@ export default {
 
     getEnrolledCourses() {
       axios({
-        url: "/enrollments/" + this.$route.params.courseId,
+        url: `/enrollments/${this.$route.params.courseId}`,
         method: "get",
       })
         .then((response) => (this.enrollment = response.data))
@@ -64,11 +64,7 @@ export default {
 
     updateProgress() {
       axios({
-        url:
-          "/enrollments/" +
-          this.enrollment.course.id +
-          "/" +
-          this.selectedChapter.id,
+        url: `/enrollments/${this.enrollment.course.id}/${this.selectedChapter.id}`,
         method: "put",
         data: {
           value: true,
@@ -79,7 +75,7 @@ export default {
     },
     updateProgressManually(value, chapter) {
       axios({
-        url: "/enrollments/" + this.enrollment.course.id + "/" + chapter,
+        url: `/enrollments/${this.enrollment.course.id}/${chapter}`,
         method: "put",
         data: {
           value: value,

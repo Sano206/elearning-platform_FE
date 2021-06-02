@@ -3,7 +3,7 @@
     class="font-weight-bold navbar sticky-top navbar-expand-lg navbar-light py-3"
     style="background-color: #118ab2"
   >
-    <router-link class="navbar-brand" to="/">Home</router-link>
+    <router-link class="navbar-brand" :to="{ name: 'home' }">Home</router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -31,18 +31,20 @@
 
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <div v-for="(topic, index) in topics" v-bind:key="index">
-              <router-link class="dropdown-item" :to="/topic/ + topic">{{
-                topic
-              }}</router-link>
+              <router-link
+                class="dropdown-item"
+                :to="{ name: 'topicFilter', params: { topic: topic } }"
+                >{{ topic }}</router-link
+              >
             </div>
           </div>
         </li>
 
-        <app-nav-item route="user/courses" name="My Courses"></app-nav-item>
+        <app-nav-item route="myCourses" name="My Courses"></app-nav-item>
 
         <app-nav-item
           v-if="isInstructor"
-          route="instructor/courses"
+          route="instructorCourses"
           name="Instructor courses"
         ></app-nav-item>
 
@@ -118,7 +120,10 @@ export default {
       });
     },
     searchCourses() {
-      this.$router.push("/title/" + this.substring);
+      this.$router.push({
+        name: "titleFilter",
+        params: { substring: this.substring },
+      });
     },
   },
 };
