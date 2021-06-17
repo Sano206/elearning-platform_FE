@@ -1,28 +1,79 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <app-nav role="navigation" :topics="topics" />
+
+    <div
+      class="alert alert-primary text-center"
+      role="alert"
+      v-if="$auth.isAuthenticated && this.isUser === false"
+    >
+      To access the courses, please fill out your user information.
+    </div>
+
+    <loading
+      class="container"
+      v-if="$auth.isAuthenticated && token === null"
+    ></loading>
+
+    <router-view
+      v-else
+      class="container"
+      style="margin-top: 20px"
+      :key="$route.fullPath"
+    ></router-view>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppNav from "@/components/nav/AppNav";
+import AppFooter from "@/components/AppFooter";
+import { tokenMixin } from "@/components/mixins/tokenMixin";
+import Loading from "@/components/Loading";
+import { topicsMixin } from "@/components/mixins/courseMixin";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    // CoursesView,
+    Loading,
+    AppNav,
+    AppFooter,
+  },
+
+  mixins: [tokenMixin, topicsMixin],
+
+  methods: {
+    login() {
+      this.$auth.loginWithRedirect();
+    },
+    logout() {
+      this.$auth.logout({
+        returnTo: window.location.origin,
+      });
+    },
+  },
+
+  async created() {
+    await this.$store.dispatch("retrieveTokenFromAuth0");
+    for (let role of this.$auth.user["https:/e-learning-app.com/roles"]) {
+      if (role === "instructor") {
+        await this.$store.dispatch("makeInstructorTrue");
+      } else if (role === "admin") {
+        await this.$store.dispatch("makeAdminTrue");
+      } else if (role === "user") {
+        await this.$store.dispatch("makeUserTrue");
+      }
+    }
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+html,
+body,
+#app,
+.container {
+  min-height: 100vh;
 }
 </style>
